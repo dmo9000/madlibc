@@ -1,13 +1,14 @@
 CC=/usr/local/gcc-68k/bin/m68k-elf-gcc
+AR=/usr/local/gcc-68k/bin/m68k-elf-ar
 CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -Os -ffunction-sections -fdata-sections
 
 MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o \
 			modules.o strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o random.o
 
-# TODO: clean up these source files
-#BDOS_OBJS=fcntl.o kopen.o klseek.o kread.o kclose.o exit.o vfs.o disk.o devices.o ext2.o bdos.o kperror.o
+all: testfile.txt malltest libmadlibc.a md5sum 8mb
 
-all: testfile.txt malltest md5sum 8mb
+libmadlibc.a: $(MADLIBC_OBJS)
+	$(AR) cru libmadlibc.a $(MADLIBC_OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
@@ -16,19 +17,15 @@ malltest:	$(MADLIBC_OBJS) crt0.o malltest.o assert.o exit.o sbrk.o malloc.o perr
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o malltest --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o $(MADLIBC_OBJS) malltest.o 	\
 		assert.o exit.o sbrk.o malloc.o perror.o \
 		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a
-	/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec malltest malltest.srec
-	#ls -l malltest
-	#size -A -d malltest
-	/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary malltest malltest.out
+	#/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec malltest malltest.srec
+	#/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary malltest malltest.out
 
 md5sum:    $(MADLIBC_OBJS) crt0.o md5sum.o assert.o exit.o sbrk.o malloc.o fcntl_uspace.o fopen.o fread.o fclose.o ustdio.o perror.o
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o md5sum --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o $(MADLIBC_OBJS) md5sum.o    \
 		assert.o exit.o sbrk.o malloc.o fcntl_uspace.o fopen.o fread.o fclose.o	ustdio.o perror.o \
 		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a
-	/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec md5sum md5sum.srec
-	#ls -l md5sum
-	#size -A -d md5sum
-	/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary md5sum md5sum.out
+	#/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec md5sum md5sum.srec
+	#/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary md5sum md5sum.out
 
 
 clean:
@@ -40,6 +37,10 @@ veryclean: clean
 install:
 	cp 8mb.img ~/git-local/68kp/8mb.img
 	md5sum testfile.txt	
+	sudo mkdir -p /usr/local/madlibc/lib
+	sudo cp uspace.lds /usr/local/madlibc/uspace.lds
+	sudo cp crt0.o /usr/local/madlibc/crt0.o
+	sudo cp libmadlibc.a /usr/local/madlibc/lib/libmadlibc.a
 
 testfile.txt:
 	cp /dev/null testfile.txt
@@ -70,14 +71,15 @@ testfile.txt:
 	@md5sum mnt/1mb.bin
 	#@linux/md5sum.linux mnt/1mb.bin
 	@cp texttest.txt mnt/
-	@chmod 644 *.out
-	@cp malltest.out mnt/malltest.out
-	@cp md5sum.out mnt/md5sum.out
+#	@chmod 644 *.out
+#	@cp malltest.out mnt/malltest.out
+#	@cp md5sum.out mnt/md5sum.out
 	@cp md5sum mnt/md5sum
-	@cp linux/md5sum.linux mnt/md5sum.linux
+#	@cp linux/md5sum.linux mnt/md5sum.linux
 	@cp malltest mnt/malltest	
 	@cp testfile.txt mnt/	
-	@cp files/*.ans mnt/
+	@mkdir mnt/ansi/
+	@cp files/*.ans mnt/ansi/
 	@cp files/frogprince.data mnt/
 	@ls --inode -ln mnt
 	@sync
