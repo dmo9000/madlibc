@@ -22,13 +22,12 @@ int _start(int argc, char *argv[])
     btvt = (_bdos_vtable *) 0x400;
     heap_marker = get_heap_marker();
     heap_marker2 = _end;
-    //memset(heap_marker, 0xFE, 128);
 #ifdef DEBUG
     printf("*** _start() *** btvt->magic = 0x%08lx, heap_marker = 0x%08lx, _end = 0x%08lx\r\n", btvt->magic, heap_marker, &_end);
 #endif /* DEBUG */
     assert(btvt->magic == 0xf0e0f0e0);
-    if (btvt->ver_rev < 6) {
-        printf("This program requires BDOS v0.0.6 (minimum) to run.\r\n");
+    if (btvt->ver_rev < 7) {
+        printf("This program requires BDOS v0.0.7 (minimum) to run.\r\n");
         puts("\r\n");
         return 0;
     }
