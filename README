@@ -1,0 +1,37 @@
+2/11/2018
+
+We now have a tiny 162-byte bootloader, which loads sectors 258-1024 of the currently selected disk
+to memory starting at address 0x500. This is the BDOS image, and once it starts it will erase the 
+256 bytes used to contain the bootloader and replace it with the BDOS vtable.
+
+The bootloader image is padded out with zeros to 32K to fit into the boot track neatly. The BDOS
+follows in the image, but has 256 bytes zero'd out at the start for the BDOS table, hence start
+reading at sector 258 to memory location 0x500. 
+
+This should be backwards compatible for now, however, it means that the BDOS image (main.out) can grow
+up to 64K in size before we need to patch the bootloader again, since we are now not restricted by 
+the size of the boot track anymore (32K).
+
+Next features to be implemented: 
+
+	* ELF binary support. Once this is working, support for raw binaries will be deprecated, then removed. 
+  * double-indirect block support for ext2 (to read files > 268K size)
+
+--
+
+Fletcher-16:
+
+    https://en.wikipedia.org/wiki/Fletcher%27s_checksum
+
+CRC32:
+    
+    https://stackoverflow.com/questions/122982/robust-and-fast-checksum-algorithm
+
+-- 
+LZ4 optimized for ARM Cortex ASM
+
+https://community.arm.com/processors/b/blog/posts/lz4-decompression-routine-for-cortex-m0-and-later
+
+Atari ST?
+--
+http://www.atari-forum.com/viewtopic.php?t=26825
