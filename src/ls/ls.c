@@ -187,11 +187,11 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
 #endif
     static char buf[PATHLEN];
     char *cp = buf;
-    int len;
+    //int len;
 
     *cp = '\0';
     if (flags & LSF_INODE) {
-        sprintf(cp, "%5d ", statbuf->st_ino);
+        sprintf(cp, "%8lu ", statbuf->st_ino);
         cp += strlen(cp);
     }
     if (flags & LSF_LONG) {
@@ -284,7 +284,8 @@ static void listfiles(char *name)
     endslash = (*name && (name[strlen(name) - 1] == '/'));
     if ((list = (char **) malloc(LISTSIZE * sizeof(char *))) == NULL) {
         fprintf(stderr, "No memory for ls buffer\n");
-        exit(2);
+        //exit(2);
+				return;
     }
 
     if (flags & (LSF_RECUR | LSF_MULT))

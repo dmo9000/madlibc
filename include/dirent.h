@@ -10,5 +10,6 @@ typedef struct dirent DIR;
 
 int closedir(DIR *dirp);
 struct dirent *readdir(DIR *dirp);
+DIR *opendir(const char *name);
 
 #endif /* __DIRENT_H__ */

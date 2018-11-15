@@ -36,5 +36,7 @@ int fputs(const char *s, FILE *stream);
 int fflush(FILE *stream);
 int fprintf(FILE *stream, const char *format, ...);
 void *malloc(size_t size);
+int fputc(int c, FILE *stream);
+int sprintf(char *str, const char *format, ...);
 
 #define SEEK_SET	0
