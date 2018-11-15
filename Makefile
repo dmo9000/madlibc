@@ -2,15 +2,17 @@ CC=/usr/local/gcc-68k/bin/m68k-elf-gcc
 AR=/usr/local/gcc-68k/bin/m68k-elf-ar
 CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -Iinclude
 
-MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o \
-			modules.o strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o random.o sbrk.o assert.o exit.o
+MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						\
+			modules.o strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o 		\
+			random.o sbrk.o assert.o exit.o strlen.o strcpy.o strdup.o perror.o malloc.o		\
+			fcntl_uspace.o fputs.o 
 
 UTILITIES=src/ls/ls
 
 all: testfile.txt malltest libmadlibc.a md5sum utilities 8mb
 
 utilities:
-	cd src/ls && make
+#	cd src/ls && make
 
 libmadlibc.a: $(MADLIBC_OBJS)
 	$(AR) cru libmadlibc.a $(MADLIBC_OBJS)
@@ -18,16 +20,16 @@ libmadlibc.a: $(MADLIBC_OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-malltest:	libmadlibc.a crt0.o malltest.o malloc.o perror.o
+malltest:	libmadlibc.a crt0.o malltest.o  
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o malltest --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o malltest.o 	\
-		malloc.o perror.o libmadlibc.a \
+		 libmadlibc.a \
 		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a 
 	#/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec malltest malltest.srec
 	#/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary malltest malltest.out
 
-md5sum:    libmadlibc.a crt0.o md5sum.o malloc.o fcntl_uspace.o fopen.o fread.o fclose.o ustdio.o perror.o
+md5sum:    libmadlibc.a crt0.o md5sum.o   fopen.o fread.o fclose.o ustdio.o 
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o md5sum --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o libmadlibc.a md5sum.o    \
-		malloc.o fcntl_uspace.o fopen.o fread.o fclose.o	ustdio.o perror.o libmadlibc.a \
+		  fopen.o fread.o fclose.o	ustdio.o libmadlibc.a \
 		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a
 	#/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec md5sum md5sum.srec
 	#/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary md5sum md5sum.out
@@ -67,7 +69,7 @@ testfile.txt:
 	@sudo mount 8mb.img mnt
 	@sudo chown -R dan:dan mnt
 	@mkdir mnt/bin
-	@cp src/ls/ls mnt/bin
+#	@cp src/ls/ls mnt/bin
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
 	@cp hello1.txt mnt/hello1.txt

@@ -7,7 +7,7 @@
 #include "fcntl.h"
 #include "string.h"
 #include "errno.h"
-#include "stat.h"
+#include <sys/stat.h>
 #include "fcntl_private.h"
 //#include "cpmbdos.h"
 //#include "cpm_sysfunc.h"

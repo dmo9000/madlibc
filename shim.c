@@ -152,6 +152,7 @@ int getchar()
 }
 */
 
+/*
 size_t strlen(const char *t)
 {
     size_t ct = 0;
@@ -159,6 +160,7 @@ size_t strlen(const char *t)
         ct++;
     return ct;
 }
+*/
 
 int get_inode(char *s)
 {

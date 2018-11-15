@@ -1,3 +1,7 @@
 Fixing headers: 
 
 	sed -i "s/\"stdlib.h\"/<stdlib.h>/g" *.c
+
+Sorting a bunch of undefined references by complaint numbers haha
+
+	make 2>&1 | grep "undefined reference" | sed -s "s/^.*\`//" | tr -d "'" | sort | uniq -c | sort -n
