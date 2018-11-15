@@ -5,7 +5,7 @@ CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m6
 MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						\
 			modules.o strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o 		\
 			random.o sbrk.o assert.o exit.o strlen.o strcpy.o strdup.o perror.o malloc.o		\
-			fcntl_uspace.o fputs.o ustdio.o 
+			fcntl_uspace.o fputs.o ustdio.o strlcat.o 
 
 UTILITIES=src/ls/ls
 

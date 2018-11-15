@@ -21,4 +21,5 @@ char *strstr(const char *haystack, const char *needle);
 char *strsep(char **stringp, const char *delim);
 char *strrchr(const char *s, int c);
 char *strcat(char *dest, const char *src);
-
+char *strdup(const char *s);
+size_t strlcat(char *dst, const char *src, size_t size);

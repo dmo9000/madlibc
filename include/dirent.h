@@ -8,4 +8,7 @@ struct dirent {
 
 typedef struct dirent DIR;
 
+int closedir(DIR *dirp);
+struct dirent *readdir(DIR *dirp);
+
 #endif /* __DIRENT_H__ */

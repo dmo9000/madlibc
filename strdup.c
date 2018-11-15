@@ -1,6 +1,6 @@
 #include <string.h>
 
-char *strdup (char *s) {
+char *strdup (const char *s) {
     char *r;
 
     if ((r = (char *)malloc(strlen(s) + 1)) == NULL) {
