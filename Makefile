@@ -29,7 +29,7 @@ md5sum:    libmadlibc.a crt0.o md5sum.o assert.o exit.o sbrk.o malloc.o fcntl_us
 
 
 clean:
-	rm -f shim *.out *.srec *.o bootldr shim malltest md5sum *.img hello?.txt
+	rm -f shim *.out *.srec *.o malltest md5sum *.img hello?.txt
 
 veryclean: clean
 	rm -f testfile.txt
