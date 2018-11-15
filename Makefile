@@ -1,6 +1,6 @@
 CC=/usr/local/gcc-68k/bin/m68k-elf-gcc
 AR=/usr/local/gcc-68k/bin/m68k-elf-ar
-CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -Os -ffunction-sections -fdata-sections
+CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -Iinclude
 
 MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o \
 			modules.o strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o random.o
@@ -38,9 +38,11 @@ install:
 	cp 8mb.img ~/git-local/68kp/8mb.img
 	md5sum testfile.txt	
 	sudo mkdir -p /usr/local/madlibc/lib
+	sudo mkdir -p /usr/local/madlibc/include
 	sudo cp uspace.lds /usr/local/madlibc/uspace.lds
 	sudo cp crt0.o /usr/local/madlibc/crt0.o
 	sudo cp libmadlibc.a /usr/local/madlibc/lib/libmadlibc.a
+	sudo cp -rfp include/* /usr/local/madlibc/include
 
 testfile.txt:
 	cp /dev/null testfile.txt

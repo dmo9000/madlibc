@@ -1,4 +1,4 @@
-#include "stddef.h"
+#include <stddef.h>
 
 void do_exit(int d);
 void exit(int d);

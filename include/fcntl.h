@@ -1,5 +1,6 @@
 #ifndef __FCNTL_H__
 #define __FCNTL_H__
+// FIXME: to remove
 #include "ext2.h"
 
 #define O_RDONLY        00

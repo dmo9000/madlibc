@@ -1,5 +1,5 @@
-#include "stdio.h"
-#include "types.h"
+#include <stdio.h>
+#include <sys/types.h>
 #include "elf.h"
 #include "string.h"
 #include "fcntl.h"

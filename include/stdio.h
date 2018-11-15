@@ -1,7 +1,6 @@
-#include "stddef.h"
-#include "stdbool.h"
-#include "types.h"
-
+#include <stddef.h>
+#include <stdbool.h>
+#include <sys/types.h>
 
 struct  _iobuf {
     char *    _ptr;

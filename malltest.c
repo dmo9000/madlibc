@@ -1,4 +1,4 @@
-#include "stdio.h"
+#include <stdio.h>
 #include "stdlib.h"
 #include "string.h"
 #include "unistd.h"
@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
     printf("Largest successfull malloc = %lu\r\n", mallsize >> 1);
     puts("\r\n");
 
+	/*
 		printf("Writing to 0x%lx ... \r\n", videoram); 
 		while(p - videoram < 0xB4000) {
 				z++;
@@ -51,6 +52,7 @@ int main(int argc, char *argv[])
 
 				p+=3;
 				}	
+		*/
 
     exit(0);
 
