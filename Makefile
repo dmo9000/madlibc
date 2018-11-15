@@ -3,7 +3,7 @@ AR=/usr/local/gcc-68k/bin/m68k-elf-ar
 CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -Iinclude
 
 MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o \
-			modules.o strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o random.o
+			modules.o strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o random.o sbrk.o
 
 all: testfile.txt malltest libmadlibc.a md5sum 8mb
 
@@ -13,16 +13,16 @@ libmadlibc.a: $(MADLIBC_OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-malltest:	libmadlibc.a crt0.o malltest.o assert.o exit.o sbrk.o malloc.o perror.o
+malltest:	libmadlibc.a crt0.o malltest.o assert.o exit.o malloc.o perror.o
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o malltest --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o malltest.o 	\
-		assert.o exit.o sbrk.o malloc.o perror.o libmadlibc.a \
+		assert.o exit.o malloc.o perror.o libmadlibc.a \
 		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a 
 	#/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec malltest malltest.srec
 	#/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary malltest malltest.out
 
-md5sum:    libmadlibc.a crt0.o md5sum.o assert.o exit.o sbrk.o malloc.o fcntl_uspace.o fopen.o fread.o fclose.o ustdio.o perror.o
+md5sum:    libmadlibc.a crt0.o md5sum.o assert.o exit.o malloc.o fcntl_uspace.o fopen.o fread.o fclose.o ustdio.o perror.o
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o md5sum --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o libmadlibc.a md5sum.o    \
-		assert.o exit.o sbrk.o malloc.o fcntl_uspace.o fopen.o fread.o fclose.o	ustdio.o perror.o libmadlibc.a \
+		assert.o exit.o malloc.o fcntl_uspace.o fopen.o fread.o fclose.o	ustdio.o perror.o libmadlibc.a \
 		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a
 	#/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec md5sum md5sum.srec
 	#/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary md5sum md5sum.out
