@@ -16,4 +16,5 @@ bootldr.img
 hello?.txt
 linux/md5sum.linux
 libmadlibc.a
+src/ls/ls
 
