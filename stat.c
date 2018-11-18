@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <string.h>
 
+/*
 int stat(const char *restrict path, struct stat *restrict buf)
 {
 
@@ -11,3 +12,4 @@ int stat(const char *restrict path, struct stat *restrict buf)
 	return 0;
 
 }
+*/

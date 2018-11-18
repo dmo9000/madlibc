@@ -22,3 +22,8 @@ int close(int fd)
     return btvt->_close(fd);
 }
 
+int stat(const char *restrict path, struct stat *restrict buf)
+{
+
+	return btvt->_stat(path, buf);
+}

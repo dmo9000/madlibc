@@ -2,7 +2,7 @@
 
 #define VERSION_MAJOR       0
 #define VERSION_MINOR       0
-#define VERSION_REVISION   	6	
+#define VERSION_REVISION   	10	
 
 typedef struct _bdos_vtable {
     uint32_t magic;
@@ -15,6 +15,7 @@ typedef struct _bdos_vtable {
     ssize_t (*_read)(int fd, void *buf, size_t count);
     ssize_t (*_write)(int fd, void *buf, size_t count);
     int (*_close)(int fildes);
+    int (*_stat)(const char *restrict path, struct stat *restrict buf);
 } _bdos_vtable;
 
 int bdos_init();
