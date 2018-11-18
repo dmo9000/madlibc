@@ -1,5 +1,6 @@
 #ifndef __DIRENT_H__
 #define __DIRENT_H__
+#include <sys/types.h>
 
 struct dirent {
 	ino_t  d_ino;

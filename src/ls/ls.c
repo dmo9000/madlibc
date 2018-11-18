@@ -92,8 +92,12 @@ static char *modestring(int mode)
     strcpy(buf, "----------");
 
     /* Fill in the file type. */
-    if (S_ISDIR(mode))
+    if (S_ISDIR(mode)) { 
         buf[0] = 'd';
+				printf("directory, mode = %o\r\n", mode);
+				} else {
+				printf("non-directory, mode = %o,%o,%o\r\n", mode, S_IFMT, (mode) & S_IFMT);
+				}
     if (S_ISCHR(mode))
         buf[0] = 'c';
     if (S_ISBLK(mode))

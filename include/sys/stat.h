@@ -24,7 +24,8 @@ struct stat
 #define S_IFCHR  0020000
 #define S_IFBLK  0060000
 
-#define S_IFMT         0x0600
+//#define S_IFMT         0x0600
+#define S_IFMT  				00170000
 #define S_IFDIR  				0040000
 
 #define S_ISFIFO(m)	(((m) & S_IFMT) == S_IFIFO)
