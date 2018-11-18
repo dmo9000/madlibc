@@ -7,6 +7,7 @@
 #define O_WRONLY        01
 #define O_TRUNC     01000
 #define O_RDWR         02
+#define O_CLOEXEC	02000000	/* set close_on_exec */
 
 #define MAX_FDS     16
 #define FD_STATE_UNUSED    -1

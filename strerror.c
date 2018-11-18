@@ -1,5 +1,5 @@
 #include "string.h"
-#include "errno.h"
+#include <errno.h>
 
 const char *strerror(int en)
 {
@@ -41,6 +41,9 @@ const char *strerror(int en)
     case EISDIR:
         return (const char *) "Is a directory";
         break;
+		case ENOTDIR:
+				return (const char *) "Not a directory";
+				break;
     case EFBIG:
         return (const char *) "File too large";
         break;
