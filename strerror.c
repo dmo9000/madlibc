@@ -47,10 +47,13 @@ const char *strerror(int en)
     case EFBIG:
         return (const char *) "File too large";
         break;
+		case ENOMEM:
+				return (const char *) "Out of memory";
+				break;
 
     }
 
-    return "Unknown error!";
+    return (const char *) "Unknown error!";
 
 }
 

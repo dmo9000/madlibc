@@ -20,6 +20,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <dirent.h>
+#include <assert.h>
 
 #ifndef UIDGID
 #define UIDGID		0 /* set to zero to disable UID/GID */
@@ -94,9 +95,9 @@ static char *modestring(int mode)
     /* Fill in the file type. */
     if (S_ISDIR(mode)) { 
         buf[0] = 'd';
-				printf("directory, mode = %o\r\n", mode);
+				//printf("directory, mode = %o\r\n", mode);
 				} else {
-				printf("non-directory, mode = %o,%o,%o\r\n", mode, S_IFMT, (mode) & S_IFMT);
+				//printf("non-directory, mode = %o,%o,%o\r\n", mode, S_IFMT, (mode) & S_IFMT);
 				}
     if (S_ISCHR(mode))
         buf[0] = 'c';
@@ -193,6 +194,9 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
     char *cp = buf;
     //int len;
 
+		printf("lsfile(%s)\r\n", name);
+		while (1) { } 
+
     *cp = '\0';
     if (flags & LSF_INODE) {
         sprintf(cp, "%8lu ", statbuf->st_ino);
@@ -261,11 +265,15 @@ static void listfiles(char *name)
     char **list, *n;
     int i, listused;
 
+		printf("listfiles(%s)\r\n", name);
+
     if (LSTAT(name, &statbuf) < 0) {
         perror(name);
         bad |= 2;
         return;
     }
+
+
     /* Is this a file ? */
     if (!S_ISDIR(statbuf.st_mode)) {
         /* Apply filters. */
@@ -275,6 +283,9 @@ static void listfiles(char *name)
         }
         return;
     }
+
+		assert(name);
+
     /* Do all the files in a directory. */
     if ((dirp = opendir(name)) == NULL) {
         perror(name);
@@ -433,8 +444,9 @@ int main(int argc, char *argv[])
     }
     if (argc > 1)
         flags |= LSF_MULT;
-    while (--argc >= 0)
+    while (--argc >= 0) {
         listfiles(*argv++);
+				}
     fflush(stdout);
     /* 2 for a bad error, 1 for a minor error, 0 otherwise but not 3 for
        both! */
