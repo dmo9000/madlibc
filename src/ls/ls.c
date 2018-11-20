@@ -438,5 +438,5 @@ int main(int argc, char *argv[])
     fflush(stdout);
     /* 2 for a bad error, 1 for a minor error, 0 otherwise but not 3 for
        both! */
-    return (bad & 2) ? 2 : bad;
+    exit ((bad & 2) ? 2 : bad);
 }

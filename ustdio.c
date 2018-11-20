@@ -1,4 +1,4 @@
-#include "bdos.h"
+#include <bdos.h>
 
 extern _bdos_vtable *btvt;
 

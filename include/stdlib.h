@@ -14,6 +14,6 @@ void qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void *, co
 
 
 //void exit(int status);
-#define exit(f) return f;
+//#define exit(f) return f;
 
 #endif /* __STDLIB_H__ */

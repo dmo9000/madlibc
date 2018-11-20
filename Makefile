@@ -1,12 +1,13 @@
 CC=/usr/local/gcc-68k/bin/m68k-elf-gcc
 AR=/usr/local/gcc-68k/bin/m68k-elf-ar
-CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -Iinclude
+CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -Iinclude -I/usr/local/madlibc/include
 
 MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						\
 			modules.o strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o 		\
 			random.o sbrk.o assert.o exit.o strlen.o strcpy.o strdup.o perror.o malloc.o		\
 			fcntl_uspace.o fputs.o ustdio.o strlcat.o fflush.o fputc.o fprintf.o stat.o			\
-			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o 
+			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
+			vprintf.o 
 
 UTILITIES=src/ls/ls src/cat/cat
 

@@ -103,5 +103,6 @@ int main(int argc, char **argv)
 
     close(1);
 
-    return (0);
+		exit(0);
+    //return (0);
 }

@@ -13,10 +13,9 @@ void do_exit(int d)
 
 void exit(int d)
 {
-    //printf("--> exit(%d)\r\n", d);
-    puts("\r\n");
-    puts("\r\n");
-    do_exit(d);
-    while (1) { }
+		/* TODO: set a field in the bdvt header with the exit code */
+		int (*re_enter_bdos)();
+		re_enter_bdos=(void *) 0x500;
+		re_enter_bdos();
 }
 

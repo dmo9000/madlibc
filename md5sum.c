@@ -5,8 +5,6 @@ typedef unsigned int uint;
 typedef unsigned char byte;
 extern int enc64(char*,byte*,int);
 
-#define exit(n) 	return n;
-
 /*
  *  rfc1321 requires that I include this.  The code is new.  The constants
  *  all come from the rfc (hence the copyright).  We trade a table for the

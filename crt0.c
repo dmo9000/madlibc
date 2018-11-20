@@ -6,12 +6,13 @@
 
 extern void *_end;
 
-//#define DEBUG
 
 extern int errno;
 extern int main(int argc, char *argv[]);
 
 _bdos_vtable *btvt = NULL;
+
+#define MIN_BDOS_VER	11
 
 int _start(int argc, char *argv[])  __attribute__((section(".start")));
 
@@ -26,8 +27,8 @@ int _start(int argc, char *argv[])
     printf("*** _start() *** btvt->magic = 0x%08lx, heap_marker = 0x%08lx, _end = 0x%08lx\r\n", btvt->magic, heap_marker, &_end);
 #endif /* DEBUG */
     assert(btvt->magic == 0xf0e0f0e0);
-    if (btvt->ver_rev < 10) {
-        printf("This program requires BDOS v0.0.10 to run.\r\n");
+    if (btvt->ver_rev < MIN_BDOS_VER) {
+        printf("This program requires BDOS v0.0.%u to run.\r\n", MIN_BDOS_VER);
         puts("\r\n");
         return 0;
     }

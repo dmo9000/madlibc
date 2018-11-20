@@ -8,8 +8,6 @@
 
 extern _bdos_vtable *btvt;
 
-#define exit(f) return f;
-
 int main(int argc, char *argv[])
 {
 
