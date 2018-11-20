@@ -195,7 +195,6 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
     //int len;
 
 		printf("lsfile(%s)\r\n", name);
-		while (1) { } 
 
     *cp = '\0';
     if (flags & LSF_INODE) {
