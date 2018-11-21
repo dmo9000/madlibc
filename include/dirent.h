@@ -39,6 +39,12 @@ typedef struct {
   struct _dir _priv;
 } DIR;        /* stream data from opendir() */
 
+/* Kernel directory format off disk */
+struct __dirent {
+  ino_t   d_ino;
+  char    d_name[30];
+};
+
 
 int closedir(DIR *dirp);
 struct dirent *readdir(DIR *dirp);

@@ -47,8 +47,12 @@ const char *strerror(int en)
     case EFBIG:
         return (const char *) "File too large";
         break;
+		/* FIXME: below here these need to be re-ordered */
 		case ENOMEM:
 				return (const char *) "Out of memory";
+				break;
+		case EFAULT:
+				return (const char *) "Bad address";
 				break;
 
     }

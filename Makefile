@@ -9,13 +9,15 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
 			vprintf.o 
 
-UTILITIES=src/ls/ls src/cat/cat
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump
+
 
 all: testfile.txt malltest libmadlibc.a md5sum utilities 8mb
 
 utilities:
 	cd src/ls && make
 	cd src/cat && make
+	cd src/hexdump && make
 
 libmadlibc.a: $(MADLIBC_OBJS)
 	$(AR) cru libmadlibc.a $(MADLIBC_OBJS)
@@ -42,13 +44,13 @@ clean:
 	rm -f shim *.out *.srec *.o malltest md5sum *.img hello?.txt
 	cd src/ls && make clean
 	cd src/cat && make clean
+	cd src/hexdump && make clean
 
 veryclean: clean
 	rm -f testfile.txt
 	
 install:
 	cp 8mb.img ~/git-local/68kp/8mb.img
-	md5sum testfile.txt	
 	sudo mkdir -p /usr/local/madlibc/lib
 	sudo mkdir -p /usr/local/madlibc/include
 	sudo cp uspace.lds /usr/local/madlibc/uspace.lds
@@ -75,6 +77,7 @@ testfile.txt:
 	@mkdir mnt/bin
 	@cp src/ls/ls mnt/ls
 	@cp src/cat/cat mnt/cat
+	@cp src/hexdump/hexdump mnt/hexdump
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
 	@cp hello1.txt mnt/hello1.txt

@@ -1,13 +1,23 @@
-#include <sys/types.h>
+/* closedir.c      closedir implementation
+ *
+ */
+#include <unistd.h>
+//#include <alloc.h>
 #include <dirent.h>
+#include <sys/stat.h>
+#include <errno.h>
+#include <fcntl.h>
 #include <string.h>
-#include <assert.h>
 
-int closedir(DIR *dirp)
+int closedir(DIR * dir)
 {
-	assert(dirp);
-	assert(NULL);
-	return -1;
-
+	if (dir == NULL || dir->dd_fd == -1) {
+		set_errno(EBADF);
+	//	errno = EBADF;
+		return -1;
+	}
+	close(dir->dd_fd);
+	dir->dd_fd = -1;
+	free(dir);
+	return 0;
 }
-

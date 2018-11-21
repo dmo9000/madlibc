@@ -4,6 +4,7 @@
 #define EBADF       9       /* bad file descriptor */
 #define EAGAIN      11      /* Try again */
 #define ENOMEM      12      /* Out of memory */
+#define	EFAULT		14				/* Bad address */
 #define	ENOTDIR		20
 #define	EISDIR		21	    /* Is a directory */
 #define EINVAL      22      /* negative offset or offset beyond end of file? Invalid address */
