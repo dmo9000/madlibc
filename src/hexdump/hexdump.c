@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 			exit(1);
 			}
 
-	d = fopen(argc[1], "rb");
+	d = fopen(argv[1], "rb");
 	if (!d) {
 			printf("hexdump: couldn't open file %s\r\n", argv[1]);
 			exit(1);

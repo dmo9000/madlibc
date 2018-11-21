@@ -7,7 +7,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			random.o sbrk.o assert.o exit.o strlen.o strcpy.o strdup.o perror.o malloc.o		\
 			fcntl_uspace.o fputs.o ustdio.o strlcat.o fflush.o fputc.o fprintf.o stat.o			\
 			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
-			vprintf.o 
+			vprintf.o fopen.o fclose.o fread.o 
 
 UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump
 
@@ -29,15 +29,11 @@ malltest:	libmadlibc.a crt0.o malltest.o
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o malltest --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o malltest.o 	\
 		 libmadlibc.a \
 		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a 
-	#/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec malltest malltest.srec
-	#/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary malltest malltest.out
 
-md5sum:    libmadlibc.a crt0.o md5sum.o   fopen.o fread.o fclose.o  
+md5sum:    libmadlibc.a crt0.o md5sum.o  
+# fopen.o fread.o fclose.o  
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o md5sum --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o libmadlibc.a md5sum.o    \
-		  fopen.o fread.o fclose.o	 libmadlibc.a \
-		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a
-	#/usr/local/gcc-68k/bin/m68k-elf-objcopy -O srec md5sum md5sum.srec
-	#/usr/local/gcc-68k/bin/m68k-elf-objcopy --redefine-sym entry=_start -O binary md5sum md5sum.out
+		  libmadlibc.a /usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a
 
 
 clean:
