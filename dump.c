@@ -2,29 +2,38 @@
 #include <stdlib.h>
 #include "string.h"
 #include <stdbool.h>
+#include <assert.h>
 #include "dump.h"
 
 char DFS = '|';
 extern bool continue_or_exit ();
 
-int ptr_dump(uint32_t offset)
+int ptr_dump(uint32_t offset, uint32_t limit)
 {
     char ptr_addr[32];
     //printf("ptr_dump(0x%08lx)\r\n", offset);
     snprintf((char *) &ptr_addr, 31, "0x%08lx", offset);
-    printf("address = %s\r\n", ptr_addr);
-    dump(ptr_addr);
+//    printf("address = %s\r\n", ptr_addr);
+    realdump(ptr_addr, limit);
     return 0;
 
 }
 
 int dump(char *payload)
 {
+	return realdump(payload, 0);
+}
+
+int realdump(char *payload, uint32_t limit)
+{
     uint32_t addr = 0;
     int i = 0;
     int lines = 0;
     unsigned char *ptr = NULL;
+		unsigned limit_counter = 0;
     //printf("dump(%s)\r\n", payload);
+
+
     if (strncmp(payload, "0x", 2) == 0) {
         addr = strtoul(payload, NULL, 16);
     } else {
@@ -35,7 +44,7 @@ int dump(char *payload)
         return -1;
     }
 
-    while (lines < 16 && addr <= 0xffffffff) {
+    while (lines < 16 && addr <= 0xffffffff && (limit && limit_counter < limit)) {
         printf("0x%08lx %c ", addr, DFS);
         for (i = 0 ; i < 16; i++) {
             ptr = (unsigned char *) addr + i;
@@ -62,7 +71,11 @@ int dump(char *payload)
         addr += 16;
         lines++;
 
-        if (lines >= 16) {
+				if (limit) {
+					limit_counter += 16;
+				}
+
+        if (lines >= 16 && (limit && limit_counter < limit)) {
             if (continue_or_exit()) {
                 lines = 0;
                 printf("\r\n");

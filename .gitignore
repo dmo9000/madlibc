@@ -18,3 +18,4 @@ linux/md5sum.linux
 libmadlibc.a
 src/ls/ls
 src/cat/cat
+src/hexdump/hexdump
