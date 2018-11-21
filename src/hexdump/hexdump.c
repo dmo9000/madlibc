@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 		nr_read = fread(&buffer, 1, BUFSIZE, d); 
 		ptr_dump(&buffer, (nr_read > BUFSIZE ? BUFSIZE : nr_read));
 		remaining -= nr_read;
-		if (!continue_or_exit()) {
+		if (remaining > 0 && (!continue_or_exit())) {
 				goto finish_up;
 				}
 		}
