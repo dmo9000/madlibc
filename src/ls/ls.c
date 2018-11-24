@@ -37,6 +37,9 @@
 #define LSTAT		stat
 #endif
 
+#define FT_FILE		1
+#define FT_DIR		2
+
 /*
  * Flags for the LS command.
  */
@@ -65,6 +68,23 @@ static void printsep(char *name);
 static void printusage(FILE *out);
 static int namesort(const void *p1, const void *p2);
 static int revnamesort(const void *p1, const void *p2);
+
+
+bool is_dotdir(char *name) {
+    if (strlen(name) > 2) {
+        return false;
+    }
+
+    if (strlen(name) == 2) {
+        if (name[0] == '.' && name[1] == '.') {
+            return true;
+        }
+    }
+    if (name[0] == '.') {
+        return true;
+    }
+    return false;
+}
 
 /*
  * Sort routines for list of filenames.
@@ -225,17 +245,53 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
         sprintf(cp, "%-8s ", groupname);
         cp += strlen(cp);
 #endif
-        if (S_ISDEV(statbuf->st_mode))
-            sprintf(cp, "%3d,%-3d  ",
-                    statbuf->st_rdev >> 8, statbuf->st_rdev & 0xFF);
-        else
+        if (S_ISDEV(statbuf->st_mode)) {
+            sprintf(cp, "%3d,%-3d  ", statbuf->st_rdev >> 8, statbuf->st_rdev & 0xFF);
+        } else {
             sprintf(cp, "%8ld ", (long) statbuf->st_size);
+        }
         cp += strlen(cp);
         sprintf(cp, "%-12s ", timestring(&statbuf->st_mtime));
     }
     fputs(buf, stdout);
-    fputs(name, stdout);
-		printf("\r\n");
+
+    if (S_ISDIR(statbuf->st_mode) && !is_dotdir(name)) {
+        printf("\x1b\x5b""%2u""m", 34); /* foreground */
+        printf("\x1b\x5b" "1m");				/* bold */
+    } else {
+        if (S_ISREG(statbuf->st_mode) && ((statbuf->st_mode & S_IXUSR) && (statbuf->st_mode & S_IXGRP) && (statbuf->st_mode & S_IXOTH))) {
+            printf("\x1b\x5b""%2u""m", 32); /* foreground */
+            printf("\x1b\x5b" "1m");        /* bold */
+
+
+        }
+    }
+
+    printf("%s", name);
+
+    if (S_ISDIR(statbuf->st_mode)) {
+        printf("\/");
+    } else {
+
+        if (S_ISREG(statbuf->st_mode) && ((statbuf->st_mode & S_IXUSR) && (statbuf->st_mode & S_IXGRP) && (statbuf->st_mode & S_IXOTH))) {
+            printf("*");
+        }
+    }
+
+    if (S_ISDIR(statbuf->st_mode) && !is_dotdir(name)) {
+        printf("\x1b\x5b" "21m");				/* bold off */
+        printf("\x1b\x5b""%2u""m", 37); /* foreground */
+    } else {
+
+        if (S_ISREG(statbuf->st_mode) && ((statbuf->st_mode & S_IXUSR) && (statbuf->st_mode & S_IXGRP) && (statbuf->st_mode & S_IXOTH))) {
+            printf("\x1b\x5b" "21m");				/* bold off */
+            printf("\x1b\x5b""%2u""m", 37); /* foreground */
+
+        }
+
+    }
+
+    printf("\r\n");
 #ifdef	S_ISLNK
     if ((flags & LSF_LONG) && S_ISLNK(statbuf->st_mode)) {
         if ((len = readlink(name, buf, PATHLEN - 1)) >= 0) {
@@ -245,7 +301,7 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
     }
 #endif
     //fputc('\r\n', stdout);
-		puts("\r\n");
+    puts("\r\n");
 }
 
 /*
@@ -343,7 +399,8 @@ static void listfiles(char *name)
     for (i = 0; i < listused; i++) {
         n = list[i];
         /* Only do expensive stat calls if we actually need the data ! */
-        if ((flags & (LSF_DIR|LSF_FILE|LSF_INODE|LSF_LONG|LSF_RECUR)) && LSTAT(n, &statbuf) < 0) {
+//        if ((flags & (LSF_DIR|LSF_FILE|LSF_INODE|LSF_LONG|LSF_RECUR)) && LSTAT(n, &statbuf) < 0) {
+        if (LSTAT(n, &statbuf) < 0) {
             perror(n);
             bad |= 1;
             goto freename;
@@ -352,12 +409,13 @@ static void listfiles(char *name)
             ++cp;
         } else {
             cp = n;
-						}
+        }
         /* Apply filters. */
         if (!(flags & (LSF_DIR | LSF_FILE)) ||
                 ((flags & LSF_DIR) && S_ISDIR(statbuf.st_mode)) ||
-                ((flags & LSF_FILE) && !S_ISDIR(statbuf.st_mode)))
+                ((flags & LSF_FILE) && !S_ISDIR(statbuf.st_mode))) {
             lsfile(cp, &statbuf, flags);
+        }
 #if	RECURSIVE
         if (!(flags & LSF_RECUR) || !S_ISDIR(statbuf.st_mode) || !strcmp(cp, ".") || !strcmp(cp, ".."))
 #endif

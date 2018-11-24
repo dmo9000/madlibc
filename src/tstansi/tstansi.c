@@ -24,7 +24,6 @@ int main()
 {
     int i = 0, j = 0;
 
-    //set_term(TTY_VT100);
     clear_screen();
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++) {
