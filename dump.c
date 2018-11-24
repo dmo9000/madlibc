@@ -21,7 +21,7 @@ int ptr_dump(uint32_t offset, uint32_t limit)
 
 int dump(char *payload)
 {
-	return realdump(payload, 0);
+    return realdump(payload, 0);
 }
 
 int realdump(char *payload, uint32_t limit)
@@ -30,7 +30,7 @@ int realdump(char *payload, uint32_t limit)
     int i = 0;
     int lines = 0;
     unsigned char *ptr = NULL;
-		unsigned limit_counter = 0;
+    unsigned limit_counter = 0;
     //printf("dump(%s)\r\n", payload);
 
 
@@ -71,9 +71,9 @@ int realdump(char *payload, uint32_t limit)
         addr += 16;
         lines++;
 
-				if (limit) {
-					limit_counter += 16;
-				}
+        if (limit) {
+            limit_counter += 16;
+        }
 
         if (lines >= 16 && (limit && limit_counter < limit)) {
             if (continue_or_exit()) {

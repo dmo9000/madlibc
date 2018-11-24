@@ -4,12 +4,12 @@
 int fputs(const char *s, FILE *stream)
 {
 
-	/* FIXME - check file handle is valid */
+    /* FIXME - check file handle is valid */
 
-		assert(stream);
-		puts(s);
+    assert(stream);
+    puts(s);
 
-		return 0;
+    return 0;
 }
 
 

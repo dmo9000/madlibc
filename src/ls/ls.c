@@ -93,12 +93,12 @@ static char *modestring(int mode)
     strcpy(buf, "----------");
 
     /* Fill in the file type. */
-    if (S_ISDIR(mode)) { 
+    if (S_ISDIR(mode)) {
         buf[0] = 'd';
-				//printf("directory, mode = %o\r\n", mode);
-				} else {
-				//printf("non-directory, mode = %o,%o,%o\r\n", mode, S_IFMT, (mode) & S_IFMT);
-				}
+        //printf("directory, mode = %o\r\n", mode);
+    } else {
+        //printf("non-directory, mode = %o,%o,%o\r\n", mode, S_IFMT, (mode) & S_IFMT);
+    }
     if (S_ISCHR(mode))
         buf[0] = 'c';
     if (S_ISBLK(mode))
@@ -169,9 +169,9 @@ static void printsep(char *name)
      */
     char type = !name+1;
     if (prevtype && (type==1 || prevtype==1))
-        fputc('\n', stdout);
+        fputc('\r\n', stdout);
     if (type == 1)
-        printf("%s:\n", name);
+        printf("%s:\r\n", name);
     prevtype = type;
 }
 
@@ -193,8 +193,6 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
     static char buf[PATHLEN];
     char *cp = buf;
     //int len;
-
-		printf("lsfile(%s)\r\n", name);
 
     *cp = '\0';
     if (flags & LSF_INODE) {
@@ -237,6 +235,7 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
     }
     fputs(buf, stdout);
     fputs(name, stdout);
+		printf("\r\n");
 #ifdef	S_ISLNK
     if ((flags & LSF_LONG) && S_ISLNK(statbuf->st_mode)) {
         if ((len = readlink(name, buf, PATHLEN - 1)) >= 0) {
@@ -245,7 +244,8 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
         }
     }
 #endif
-    fputc('\n', stdout);
+    //fputc('\r\n', stdout);
+		puts("\r\n");
 }
 
 /*
@@ -264,14 +264,11 @@ static void listfiles(char *name)
     char **list, *n;
     int i, listused;
 
-		printf("listfiles(%s)\r\n", name);
-
     if (LSTAT(name, &statbuf) < 0) {
         perror(name);
         bad |= 2;
         return;
     }
-
 
     /* Is this a file ? */
     if (!S_ISDIR(statbuf.st_mode)) {
@@ -283,7 +280,7 @@ static void listfiles(char *name)
         return;
     }
 
-		assert(name);
+    assert(name);
 
     /* Do all the files in a directory. */
     if ((dirp = opendir(name)) == NULL) {
@@ -297,30 +294,34 @@ static void listfiles(char *name)
     listsize = LISTSIZE;
     endslash = (*name && (name[strlen(name) - 1] == '/'));
     if ((list = (char **) malloc(LISTSIZE * sizeof(char *))) == NULL) {
-        fprintf(stderr, "No memory for ls buffer\n");
+        fprintf(stderr, "No memory for ls buffer\r\n");
         //exit(2);
-				return;
+        return;
     }
 
-    if (flags & (LSF_RECUR | LSF_MULT))
+    if (flags & (LSF_RECUR | LSF_MULT)) {
         printsep(name);
+    }
     while ((dp = readdir(dirp)) != NULL) {
-        if (dp->d_name[0] == '\0')
+        if (dp->d_name[0] == '\0') {
             continue;
-        if (!(flags & LSF_ALL) && dp->d_name[0] == '.')
+        }
+        if (!(flags & LSF_ALL) && dp->d_name[0] == '.') {
             continue;
+        }
+
         fullname[0] = '\0';
         if ((*name != '.') || (name[1] != '\0')) {
             strcpy(fullname, name);
-            if (!endslash)
+            if (!endslash) {
                 strlcat(fullname, "/", sizeof(fullname));
+            }
         }
         strlcat(fullname, dp->d_name, sizeof(fullname));
         if (listused >= listsize) {
-            newlist = realloc(list,
-                              ((sizeof(char **)) * (listsize + LISTSIZE)));
+            newlist = realloc(list, ((sizeof(char **)) * (listsize + LISTSIZE)));
             if (newlist == NULL) {
-                fprintf(stderr, "No memory for ls buffer\n");
+                fprintf(stderr, "No memory for ls buffer\r\n");
                 bad |= 2;
                 break;
             }
@@ -328,7 +329,7 @@ static void listfiles(char *name)
             listsize += LISTSIZE;
         }
         if ((list[listused] = strdup(fullname)) == NULL) {
-            fprintf(stderr, "No memory for filenames\n");
+            fprintf(stderr, "No memory for filenames\r\n");
             bad |= 2;
             break;
         }
@@ -347,10 +348,11 @@ static void listfiles(char *name)
             bad |= 1;
             goto freename;
         }
-        if ((cp = strrchr(n, '/')) != 0)
+        if ((cp = strrchr(n, '/')) != 0) {
             ++cp;
-        else
+        } else {
             cp = n;
+						}
         /* Apply filters. */
         if (!(flags & (LSF_DIR | LSF_FILE)) ||
                 ((flags & LSF_DIR) && S_ISDIR(statbuf.st_mode)) ||
@@ -379,6 +381,7 @@ freename:
     }
 #endif
     free(list);
+
 }
 
 static void printusage(FILE *out)
@@ -445,7 +448,7 @@ int main(int argc, char *argv[])
         flags |= LSF_MULT;
     while (--argc >= 0) {
         listfiles(*argv++);
-				}
+    }
     fflush(stdout);
     /* 2 for a bad error, 1 for a minor error, 0 otherwise but not 3 for
        both! */

@@ -103,8 +103,8 @@ long *tim;
     daylbegin = sunday (ct, daylbegin);
     daylend = sunday (ct, daylend);
     if (systime.dstflag &&
-        (dayno > daylbegin || (dayno == daylbegin && ct->tm_hour >= 2)) &&
-        (dayno < daylend || (dayno == daylend && ct->tm_hour < 1))) {
+            (dayno > daylbegin || (dayno == daylbegin && ct->tm_hour >= 2)) &&
+            (dayno < daylend || (dayno == daylend && ct->tm_hour < 1))) {
         copyt += 1 * 60 * 60;
         ct = gmtime (&copyt);
         ct->tm_isdst++;

@@ -3,48 +3,25 @@
 #include <sys/types.h>
 #include <stddef.h>
 
-/*
-struct dirent {
-	ino_t  d_ino;
-	int 	dd_fd;
-	int 	dd_loc;
-	int 	_priv;
-	char   d_name[]; 
-	};
-
-typedef struct dirent DIR;
-*/
+#define EXT2_NAME_LEN 255
 
 struct dirent {
-  long    d_ino;    /* Try to be iBCS2 like */
-  off_t   d_off;
-  unsigned short  d_reclen;
-  char    d_name[31];
-};
-
-/* Internal directory structure */
-struct _dir {
-  struct dirent de;
-  uint8_t buf[512];
-  uint8_t next;
-  uint8_t last;
+    uint32_t d_ino;     /* Inode number */
+    uint16_t d_reclen;   /* Directory entry length */
+    uint8_t name_len;   /* Name length */
+    uint8_t file_type;
+    char    d_name[EXT2_NAME_LEN+1];
 };
 
 /* Directory stream type.  */
-typedef struct {
+typedef struct _dir {
+	uint32_t dd_ino;	/* reference to on disk inode number */
   int dd_fd;    /* file descriptor */
-  int dd_loc;   /* offset in buffer */
-  int dd_size;    /* # of valid entries in buffer */
-  struct dirent *dd_buf;  /* -> directory buffer */
-  struct _dir _priv;
+  uint32_t  dd_loc;   /* offset in buffer */
 } DIR;        /* stream data from opendir() */
 
-/* Kernel directory format off disk */
-struct __dirent {
-  ino_t   d_ino;
-  char    d_name[30];
-};
 
+#define EXT2_NAME_LEN 255
 
 int closedir(DIR *dirp);
 struct dirent *readdir(DIR *dirp);

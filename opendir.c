@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 //#include <alloc.h>
 #include <dirent.h>
 #include <sys/stat.h>
@@ -10,24 +11,22 @@
 
 DIR *opendir(const char *name)
 {
-	DIR *dir = calloc(1, sizeof(DIR));
+    DIR *dir = calloc(1, sizeof(DIR));
 
-	assert(dir);
+    assert(dir);
 
-	printf("opendir(%s)\r\n", name);
+//	printf("opendir(%s)\r\n", name);
 
-	if (dir == NULL) {
-		set_errno(ENOMEM);
-		return NULL;
-	}
+    if (dir == NULL) {
+        //set_errno(ENOMEM);
+        return NULL;
+    }
 
-	dir = opendir_r(dir, name);
-	if (dir == NULL) {
-//		free(dir);
-		perror("opendir");
-		return NULL;
-		
-		}
+    dir = opendir_r(dir, name);
+    if (dir == NULL) {
+        perror("opendir");
+        return NULL;
+    }
 
-	return dir;
+    return dir;
 }

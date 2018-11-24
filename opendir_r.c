@@ -1,5 +1,4 @@
 #include <unistd.h>
-//#include <alloc.h>
 #include <stdlib.h>
 #include <dirent.h>
 #include <sys/stat.h>
@@ -10,30 +9,28 @@
 
 DIR *opendir_r(DIR *dir, char *path)
 {
-	struct stat statbuf;
+    struct stat statbuf;
 
-	if (stat(path, &statbuf) != 0) {
-		return NULL;
-		}
+    if (stat(path, &statbuf) != 0) {
+        return NULL;
+    }
 
-	assert(dir);
-	assert(path);
+    assert(dir);
+    assert(path);
 
-	if ((statbuf.st_mode & S_IFDIR) == 0) {
-		set_errno(ENOTDIR);
-		return NULL;
-	}
+    if ((statbuf.st_mode & S_IFDIR) == 0) {
+        set_errno(ENOTDIR);
+        return NULL;
+    }
 
+//	printf("opendir_r(%s, 0x%lx)\r\n", path, dir);
 
-	printf("opendir_r(%s, 0x%lx)\r\n", path, dir);
-
-	if ((dir->dd_fd = open(path, O_RDONLY)) < 0) {
+    if ((dir->dd_fd = open(path, O_RDONLY)) < 0) {
 //	if ((dir->dd_fd = open(path, O_RDONLY | O_CLOEXEC)) < 0) {
-		return NULL;
-		}
+        return NULL;
+    }
 
-	dir->dd_loc = 0;
-	dir->_priv.next = 0;
-	dir->_priv.last = 0;
-	return dir;
+    dir->dd_loc = 0;
+    dir->dd_ino = statbuf.st_ino;
+    return dir;
 }

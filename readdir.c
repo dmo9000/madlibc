@@ -2,52 +2,53 @@
  *
  */
 #include <unistd.h>
-//#include <alloc.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <stdbool.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <string.h>
+#include <assert.h>
+#include <stdio.h>
 
-static struct __dirent *dnext(DIR *dir)
-{
-		printf("dnext(0x%08lx)\r\n", dir);
-    if (dir->_priv.next == dir->_priv.last) {
-        int l = read(dir->dd_fd, dir->_priv.buf, sizeof(dir->_priv.buf));
-        if (l <= 0)
-            return NULL;
-        l /= 32;
-        dir->_priv.last = l;
-        dir->_priv.next = 0;
-    }
-    return (struct __dirent *)(dir->_priv.buf + 32 * dir->_priv.next++);
-}
+#define DIRENT_HEADER_SIZE	(sizeof(uint32_t) + sizeof(uint16_t) + (sizeof(uint8_t) * 2))
 
 struct dirent *readdir(DIR * dir)
 {
-    struct __dirent *direntry;
-    struct dirent *buf;
+    static struct dirent de;
+    bool be;
+    int r = 0;
+    assert(dir);
+//    printf("readdir(dir->dd_fd=%d,dir->dd_ino=%u, dir->dd_loc=%u)\r\n", dir->dd_fd, dir->dd_ino, dir->dd_loc);
+    memset(&de, 0, sizeof(struct dirent));
+    assert(dir->dd_loc ==	lseek(dir->dd_fd, dir->dd_loc, SEEK_SET));
+//    printf("dd->loc = %u\r\n", dir->dd_loc);
+//	lseek(dir->dd_fd, dir->dd_loc, SEEK_SET);
 
-		printf("readdir(0x%08lx)\r\n", dir);
+    r = read(dir->dd_fd, &de, DIRENT_HEADER_SIZE);
+//   printf("r = %d\r\n", r);
+    be = is_big_endian();
+    if (be) {
+        de.d_ino = nm_uint32(de.d_ino);
+        de.d_reclen = nm_uint16(de.d_reclen);
+    }
+    memset(&de.d_name, 0, EXT2_NAME_LEN+1);
+    r = read(dir->dd_fd, &de.d_name, de.name_len);
+    /*
+    printf("de.d_ino = %u ", de.d_ino);
+    printf("de.d_reclen = %u ", de.d_reclen);
+    printf("de.name_len = %u ", de.name_len);
+    printf("de.file_type = %u ", de.file_type);
+    printf("de.d_name = [%s]\r\n", de.d_name);
+    */
+//	printf("%u + %u = %u == %u\r\n", DIRENT_HEADER_SIZE, de.name_len, DIRENT_HEADER_SIZE + de.name_len, de.d_reclen);
+//	ptr_dump(&de, de.d_reclen);
 
-    if (dir == NULL) {
-        set_errno(EFAULT);
+    if (de.d_reclen == 0) {
         return NULL;
     }
 
-    while (direntry->d_name[0] != 0) {
-        direntry = dnext(dir);
-        if (direntry == NULL) {
-            return NULL;
-						}
-			}
-
-    buf = &dir->_priv.de;
-    buf->d_ino = direntry->d_ino;
-    buf->d_off = -1;	/* FIXME */
-    buf->d_reclen = 31;
-    dir->dd_loc += (buf->d_reclen + 1);
-    strncpy(buf->d_name, (char *) direntry->d_name, 31);
-    buf->d_name[30] = 0;
-    return buf;
+    dir->dd_loc = dir->dd_loc + de.d_reclen;
+//    printf("new dd->loc = %u\r\n", dir->dd_loc);
+    return (&de);
 }

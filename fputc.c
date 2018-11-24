@@ -4,9 +4,9 @@
 int fputc(int c, FILE *stream)
 {
 
-	/* FIXME: do properly, using write() */
+    /* FIXME: do properly, using write() */
 
-	assert(stream);
-	putchar(c);
+    assert(stream);
+    putchar(c);
 
 }

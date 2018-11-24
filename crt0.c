@@ -10,7 +10,7 @@ extern void *_end;
 extern int errno;
 extern int main(int argc, char *argv[]);
 
-_bdos_vtable *btvt = NULL;
+_bdos_vtable *bdvt = NULL;
 
 #define MIN_BDOS_VER	11
 
@@ -20,14 +20,14 @@ int _start(int argc, char *argv[])
 {
     void *heap_marker = NULL;
     void *heap_marker2 = NULL;
-    btvt = (_bdos_vtable *) 0x400;
+    bdvt = (_bdos_vtable *) 0x400;
     heap_marker = get_heap_marker();
     heap_marker2 = _end;
 #ifdef DEBUG
-    printf("*** _start() *** btvt->magic = 0x%08lx, heap_marker = 0x%08lx, _end = 0x%08lx\r\n", btvt->magic, heap_marker, &_end);
+    printf("*** _start() *** bdvt->magic = 0x%08lx, heap_marker = 0x%08lx, _end = 0x%08lx\r\n", bdvt->magic, heap_marker, &_end);
 #endif /* DEBUG */
-    assert(btvt->magic == 0xf0e0f0e0);
-    if (btvt->ver_rev < MIN_BDOS_VER) {
+    assert(bdvt->magic == 0xf0e0f0e0);
+    if (bdvt->ver_rev < MIN_BDOS_VER) {
         printf("This program requires BDOS v0.0.%u to run.\r\n", MIN_BDOS_VER);
         puts("\r\n");
         return 0;
@@ -40,13 +40,13 @@ int _start(int argc, char *argv[])
 
 int _bdos_geterrno()
 {
-//    errno = btvt->errno;
-    return btvt->errno;
+//    errno = bdvt->errno;
+    return bdvt->errno;
 }
 
 int _bdos_seterrno(int e)
 {
-    btvt->errno = e;
+    bdvt->errno = e;
 //    errno = e;
-    return btvt->errno;
+    return bdvt->errno;
 }

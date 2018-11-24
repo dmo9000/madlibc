@@ -1,29 +1,36 @@
 #include <bdos.h>
+//#include <assert.h>
 
-extern _bdos_vtable *btvt;
+extern _bdos_vtable *bdvt;
 
 int open(const char *pathname, int flags)
 {
 
-    return btvt->_open(pathname, flags);
+    return bdvt->_open(pathname, flags);
 }
 
 
 ssize_t read(int fd, void *buf, size_t count)
 {
 
-    return btvt->_read(fd, buf, count);
+    return bdvt->_read(fd, buf, count);
 
 }
 
 int close(int fd)
 {
 
-    return btvt->_close(fd);
+    return bdvt->_close(fd);
 }
 
 int stat(const char *restrict path, struct stat *restrict buf)
 {
 
-	return btvt->_stat(path, buf);
+    return bdvt->_stat(path, buf);
+}
+
+off_t lseek(int fd, off_t offset, int whence)
+{
+//	assert(bdvt->_lseek);
+    return bdvt->_lseek(fd, offset, whence);
 }

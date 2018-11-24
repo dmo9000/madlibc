@@ -1,0 +1,112 @@
+/*
+ * An example demonstrating basic directory listing.
+ *
+ * Compile this file with Visual Studio and run the produced command in
+ * console with a directory name argument.  For example, command
+ *
+ *     ls "c:\Program Files"
+ *
+ * might output something like
+ *
+ *     ./
+ *     ../
+ *     7-Zip/
+ *     Internet Explorer/
+ *     Microsoft Visual Studio 9.0/
+ *     Microsoft.NET/
+ *     Mozilla Firefox/
+ *
+ * The ls command provided by this file is only an example: the command does
+ * not have any fancy options like "ls -al" in Linux and the command does not
+ * support file name matching like "ls *.c".
+ *
+ * Copyright (C) 2006-2012 Toni Ronkko
+ * This file is part of dirent.  Dirent may be freely distributed
+ * under the MIT license.  For all details and documentation, see
+ * https://github.com/tronkko/dirent
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+
+#define EXIT_SUCCESS	0
+#define EXIT_FAILURE	255
+
+#define DT_REG	1	
+#define DT_DIR	2	
+#define DT_LNK	0
+
+
+static void list_directory (const char *dirname);
+
+
+int
+main(
+    int argc, char *argv[])
+{
+    int i;
+
+    /* For each directory in command line */
+    i = 1;
+    while (i < argc) {
+        list_directory (argv[i]);
+        i++;
+    }
+
+    /* List current working directory if no arguments on command line */
+    if (argc == 1) {
+        list_directory (".");
+    }
+    return EXIT_SUCCESS;
+}
+
+/*
+ * List files and directories within a directory.
+ */
+static void
+list_directory(const char *dirname)
+{
+    struct dirent *ent;
+    DIR *dir;
+
+    /* Open directory stream */
+    dir = opendir (dirname);
+    if (dir != NULL) {
+        ent = readdir (dir);
+				//printf("->> ent = 0x%x\r\n", ent);
+        /* Print all files and directories within the directory */
+        while (ent != NULL && ent->d_name[0] != '\0') {
+						//printf("ent = 0x%x\r\n", ent);
+            switch (ent->file_type) {
+            case DT_REG:
+                printf ("%s\r\n", ent->d_name);
+                break;
+
+            case DT_DIR:
+                printf ("%s/\r\n", ent->d_name);
+                break;
+
+            case DT_LNK:
+                printf ("%s@\r\n", ent->d_name);
+                break;
+
+            default:
+                printf ("%s*\r\n", ent->d_name);
+            }
+        ent = readdir (dir);
+				//printf("->> ent = 0x%x\r\n", ent);
+        }
+
+				//printf("CLOSING DIR...\r\n");
+				puts("\r\n");
+
+        closedir (dir);
+
+    } else {
+        /* Could not open directory */
+        printf ("Cannot open directory %s\n", dirname);
+        exit (EXIT_FAILURE);
+    }
+}
+

@@ -2,7 +2,7 @@
 #define __EXT2_H__
 
 #include <sys/types.h>
-#include <stdbool.h>
+#include "stdbool.h"
 #include "devices.h"
 
 #define EXT2_SUPER_MAGIC    	0xEF53
@@ -202,7 +202,7 @@ int ext2_probe();
 struct ext2_inode * ext2_readinode (struct ext2_fs *fs, unsigned long itab, unsigned long i);
 int ext2_ls (struct ext2_fs *fs, unsigned long i);
 bool isdirectory(uint32_t inode);
-uint32_t ext2_path_to_inode(char *path);
+uint32_t ext2_path_to_inode(char *path, uint32_t start_inode);
 int ext2_list_directory(uint32_t directory_inode);
 int ext2_inode_lookup(uint32_t inode_lookup, ext2_inode *my_inode, bool debug);
 uint32_t ext2_get_inode_block(ext2_inode *e2i, uint32_t file_block_id);

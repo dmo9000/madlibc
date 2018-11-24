@@ -3,7 +3,7 @@
 
 int fflush(FILE *stream)
 {
-	assert(stream);
-	return 0;
+    assert(stream);
+    return 0;
 }
 

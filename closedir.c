@@ -11,13 +11,13 @@
 
 int closedir(DIR * dir)
 {
-	if (dir == NULL || dir->dd_fd == -1) {
-		set_errno(EBADF);
-	//	errno = EBADF;
-		return -1;
-	}
-	close(dir->dd_fd);
-	dir->dd_fd = -1;
-	free(dir);
-	return 0;
+    if (dir == NULL || dir->dd_fd == -1) {
+        set_errno(EBADF);
+        //	errno = EBADF;
+        return -1;
+    }
+    close(dir->dd_fd);
+    dir->dd_fd = -1;
+    free(dir);
+    return 0;
 }

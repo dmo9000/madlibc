@@ -41,19 +41,19 @@ const char *strerror(int en)
     case EISDIR:
         return (const char *) "Is a directory";
         break;
-		case ENOTDIR:
-				return (const char *) "Not a directory";
-				break;
+    case ENOTDIR:
+        return (const char *) "Not a directory";
+        break;
     case EFBIG:
         return (const char *) "File too large";
         break;
-		/* FIXME: below here these need to be re-ordered */
-		case ENOMEM:
-				return (const char *) "Out of memory";
-				break;
-		case EFAULT:
-				return (const char *) "Bad address";
-				break;
+    /* FIXME: below here these need to be re-ordered */
+    case ENOMEM:
+        return (const char *) "Out of memory";
+        break;
+    case EFAULT:
+        return (const char *) "Bad address";
+        break;
 
     }
 
