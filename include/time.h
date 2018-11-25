@@ -26,4 +26,10 @@ struct tm
 static sunday (register struct tm *t, register int d);
 char *ctime(const time_t *timep);
 
+struct timeval {
+  __kernel_time_t   tv_sec;   /* seconds */
+  __kernel_suseconds_t  tv_usec;  /* microseconds */
+};
+
+
 #endif /* __TIME_H__ */

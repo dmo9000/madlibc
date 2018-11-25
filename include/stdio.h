@@ -40,3 +40,6 @@ int fputc(int c, FILE *stream);
 int sprintf(char *str, const char *format, ...);
 
 #define SEEK_SET	0
+
+
+#define BUFSIZ 8192
