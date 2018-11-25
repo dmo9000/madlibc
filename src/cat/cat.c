@@ -83,7 +83,6 @@ int main(int argc, char **argv)
     int curr_input_fd;
     int arg_num;
 
-    printf("argc == %d\r\n", argc);
     if (argc < 2) {
         printf("usage: cat <file1> [[file2] ...]\r\n");
         exit(1);

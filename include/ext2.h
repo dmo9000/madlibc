@@ -46,6 +46,7 @@
 
 
 #define FILENAME_MAX    256
+#define MAX_PATH				1024
 
 typedef struct ext2_super_block
 {

@@ -23,3 +23,5 @@ char *strrchr(const char *s, int c);
 char *strcat(char *dest, const char *src);
 char *strdup(const char *s);
 size_t strlcat(char *dst, const char *src, size_t size);
+char *strncat(char *dest, const char *src, size_t n);
+

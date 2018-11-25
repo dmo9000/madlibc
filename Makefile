@@ -7,7 +7,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			random.o sbrk.o assert.o exit.o strlen.o strcpy.o strdup.o perror.o malloc.o		\
 			fcntl_uspace.o fputs.o ustdio.o strlcat.o fflush.o fputc.o fprintf.o stat.o			\
 			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
-			vprintf.o fopen.o fclose.o fread.o endian.o 
+			vprintf.o fopen.o fclose.o fread.o endian.o strncat.o strcat.o 
 
 UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls
 
@@ -75,34 +75,26 @@ testfile.txt:
 	@sudo mount 8mb.img mnt
 	@sudo chown -R dan:dan mnt
 	@mkdir mnt/bin
-	@cp src/ls/ls mnt/ls
-	@cp src/cat/cat mnt/cat
-	@cp src/hexdump/hexdump mnt/hexdump
-	@cp src/tstansi/tstansi mnt/tstansi
-	@cp src/cls/cls mnt/cls
+	@mkdir mnt/testdata
+	@cp src/ls/ls mnt/bin/ls
+	@cp src/cat/cat mnt/bin/cat
+	@cp src/hexdump/hexdump mnt/bin/hexdump
+	@cp src/tstansi/tstansi mnt/bin/tstansi
+	@cp src/cls/cls mnt/bin/cls
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
-	@cp hello1.txt mnt/hello1.txt
-	@cp hello2.txt mnt/hello2.txt
-	@dd if=/dev/urandom of=mnt/12blocks.bin bs=1024 count=12 1>/dev/null 2>&1
-	@dd if=/dev/urandom of=mnt/13blocks.bin bs=1024 count=13 1>/dev/null 2>&1
-	@mkdir -p mnt/foo/bar/baz
-	@dd if=/dev/urandom of=mnt/foo/12blocks.bin bs=1024 count=12 1>/dev/null 2>&1
-	@dd if=/dev/urandom of=mnt/foo/13blocks.bin bs=1024 count=13 1>/dev/null 2>&1
-	@cp 1mb.bin mnt/
-	@md5sum mnt/1mb.bin
-	#@linux/md5sum.linux mnt/1mb.bin
-	@cp texttest.txt mnt/
-#	@chmod 644 *.out
-#	@cp malltest.out mnt/malltest.out
-#	@cp md5sum.out mnt/md5sum.out
-	@cp md5sum mnt/md5sum
-#	@cp linux/md5sum.linux mnt/md5sum.linux
-	@cp malltest mnt/malltest	
-	@cp testfile.txt mnt/	
+	@cp hello1.txt mnt/testdata/hello1.txt
+	@cp hello2.txt mnt/testdata/hello2.txt
+	@dd if=/dev/urandom of=mnt/testdata/12blocks.bin bs=1024 count=12 1>/dev/null 2>&1
+	@dd if=/dev/urandom of=mnt/testdata/13blocks.bin bs=1024 count=13 1>/dev/null 2>&1
+	@cp 1mb.bin mnt/testdata
+	@cp texttest.txt mnt/testdata
+	@cp md5sum mnt/bin/md5sum
+	@cp malltest mnt/bin/malltest	
+	@cp testfile.txt mnt/testdata/
 	@mkdir mnt/ansi/
 	@cp files/*.ans mnt/ansi/
-	@cp files/frogprince.data mnt/
+	@cp files/frogprince.data mnt/testdata
 	@ls --inode -ln mnt
 	@sync
 	@sudo umount mnt
