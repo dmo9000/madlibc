@@ -1,7 +1,7 @@
 /*
  * tiny-cat.c - This file is part of the tiny-utils package for Linux & ELKS,
  * Copyright (C) 1995, 1996 Nat Friedman <ndf@linux.mit.edu>.
- * 
+ *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -42,14 +42,14 @@ int open_file(char *new_filename)
     filename = new_filename;
 
     if (*filename == '-' && *(filename + 1) == '\0')
-	return (STDIN_FILENO);
+        return (STDIN_FILENO);
 
     /*
      * If open() returns an error, the accepted behavior is for cat to
      * report the error and move on to the next file in the argument list.
      */
     if ((fd = open(filename, O_RDONLY)) < 0)
-	perror(filename);
+        perror(filename);
 
     return (fd);
 }
@@ -64,12 +64,12 @@ int output_file(int fd)
     int bytes_read;
 
     while ((bytes_read = read(fd, buff, BUFFER_SIZE)) > 0) {
-			/* FIXME: we need to support write system call */
-			//write(STDOUT_FILENO, buff, bytes_read);
-			for (int i = 0; i < bytes_read; i++) {
-					putchar(buff[i]);
-					}
-			}
+        /* FIXME: we need to support write system call */
+        //write(STDOUT_FILENO, buff, bytes_read);
+        for (int i = 0; i < bytes_read; i++) {
+            putchar(buff[i]);
+        }
+    }
 
     if (bytes_read < 0)
         perror(filename);
@@ -83,26 +83,33 @@ int main(int argc, char **argv)
     int curr_input_fd;
     int arg_num;
 
+    printf("argc == %d\r\n", argc);
+    if (argc < 2) {
+        printf("usage: cat <file1> [[file2] ...]\r\n");
+        exit(1);
+    }
+
     if (argc == 1)
-	arg_num = 0;
+        arg_num = 0;
     else
-	arg_num = 1;
+        arg_num = 1;
 
     while (arg_num < argc) {
-	if (argc == 1)
-	    curr_input_fd = open_file("-");
-	else
-	    curr_input_fd = open_file(argv[arg_num]);
+        if (argc == 1) {
+            curr_input_fd = open_file("-");
+        } else {
+            curr_input_fd = open_file(argv[arg_num]);
+        }
 
-	if (curr_input_fd >= 0) {
-	    output_file(curr_input_fd);
-	    close(curr_input_fd);
-	}
-	arg_num++;
+        if (curr_input_fd >= 0) {
+            output_file(curr_input_fd);
+            close(curr_input_fd);
+        }
+        arg_num++;
     }
 
     close(1);
 
-		exit(0);
+    exit(0);
     //return (0);
 }
