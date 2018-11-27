@@ -14,7 +14,7 @@ void do_exit(int d)
 void exit(int d)
 {
     /* TODO: set a field in the bdvt header with the exit code */
-    puts("\r\n");
+//    puts("\r\n");
     int (*re_enter_bdos)();
     re_enter_bdos=(void *) 0x500;
     re_enter_bdos();
