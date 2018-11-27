@@ -12,11 +12,17 @@
 int main(int argc, char *argv[])
 {
 
-	assert(argc == 2);
+	if (argc != 2) {
+			printf("usage: cd <path>\r\n");
+			exit(1);
+			}
 
-	printf("changing to directory -> %s\r\n", argv[1]);
+	if (chdir(argv[1]) !=0) {
+			perror("chdir");
+			exit(1);
+			}
 
-	chdir(argv[1]);
+	/* all is well */
 
 	exit(0);
 
