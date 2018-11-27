@@ -8,6 +8,7 @@
 #define O_TRUNC     01000
 #define O_RDWR         02
 #define O_CLOEXEC	02000000	/* set close_on_exec */
+#define O_CREAT	   0100	/* Not fcntl.  */
 
 #define MAX_FDS     16
 #define FD_STATE_UNUSED    -1

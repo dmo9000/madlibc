@@ -1,7 +1,24 @@
 #ifndef __UTMPX_H__
 #define __UTMPX_H__
 
+#define __UT_LINESIZE 32
+#define __UT_NAMESIZE 32
+#define __UT_HOSTSIZE 256
+
+
 #define USER_PROCESS	7	/* Normal process.  */
+
+struct __exit_status
+  {
+#ifdef __USE_GNU
+    short int e_termination;  /* Process termination status.  */
+    short int e_exit;   /* Process exit status.  */
+#else
+    short int __e_termination;  /* Process termination status.  */
+    short int __e_exit;   /* Process exit status.  */
+#endif
+  };
+
 
 /* The structure describing an entry in the user accounting database.  */
 struct utmpx
@@ -32,6 +49,5 @@ struct utmpx
   __int32_t ut_addr_v6[4];  /* Internet address of remote host.  */
   char __glibc_reserved[20];    /* Reserved for future use.  */
 };
-
 
 #endif /* __UTMPX_H__ */

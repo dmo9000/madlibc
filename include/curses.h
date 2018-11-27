@@ -35,4 +35,7 @@ extern WINDOW *curscr;			/* the current screen image */
 extern int LINES;						/* terminal height */
 extern int COLS;						/* terminal width */
 
+#define ERR 1		/* general error flag */
+
+
 #endif /* __CURSES_H__ */

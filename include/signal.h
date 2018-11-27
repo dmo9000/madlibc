@@ -30,8 +30,10 @@
 #define SIGIO   29
 #define SIGPOLL   SIGIO
 
+#define NSIGS	  32      /* Number of signals <= 32 */
+#define NSIG		NSIGS
 
+#define __sighandler_t	uint8_t	
 
-#define __sighandler_t	uint8_t
-
+#define	SIG_DFL	 ((__sighandler_t)  0)	/* Default action.  */
 #define	SIG_IGN	 ((__sighandler_t)  1)	/* Ignore signal.  */

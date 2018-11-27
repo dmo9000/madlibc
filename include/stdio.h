@@ -1,3 +1,6 @@
+#ifndef __STDIO_H__
+#define __STDIO_H__
+
 #include <stddef.h>
 #include <stdbool.h>
 #include <sys/types.h>
@@ -43,3 +46,5 @@ int sprintf(char *str, const char *format, ...);
 
 
 #define BUFSIZ 8192
+
+#endif /* __STDIO_H__ */

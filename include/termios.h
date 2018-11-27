@@ -1,4 +1,12 @@
 #define  B1200	0000011
+typedef unsigned int	speed_t;
+#define NCCS 19
+typedef unsigned char	cc_t;
+typedef unsigned int	tcflag_t;
+
+#define VERASE		2	/* Supported */
+#define VKILL		4	/* Supported */
+
 
 struct termios
   {
@@ -13,4 +21,5 @@ struct termios
 #define _HAVE_STRUCT_TERMIOS_C_ISPEED 1
 #define _HAVE_STRUCT_TERMIOS_C_OSPEED 1
   };
+
 

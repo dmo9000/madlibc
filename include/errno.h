@@ -5,7 +5,7 @@
 #define EAGAIN      11      /* Try again */
 #define ENOMEM      12      /* Out of memory */
 #define	EFAULT		14				/* Bad address */
-#define	ENOTDIR		20
+#define	ENOTDIR		20			/* Not a directory */
 #define	EISDIR		21	    /* Is a directory */
 #define EINVAL      22      /* negative offset or offset beyond end of file? Invalid address */
 #define ENFILE      23      /* too many open files (in-process) */

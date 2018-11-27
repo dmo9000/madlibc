@@ -9,7 +9,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
 			vprintf.o fopen.o fclose.o fread.o endian.o strncat.o strcat.o 
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd
 
 
 all: testfile.txt malltest libmadlibc.a md5sum utilities 8mb
@@ -20,6 +20,7 @@ utilities:
 	cd src/hexdump && make
 	cd src/tstansi && make
 	cd src/cls && make
+	cd src/cd && make
 
 libmadlibc.a: $(MADLIBC_OBJS)
 	$(AR) cru libmadlibc.a $(MADLIBC_OBJS)
@@ -45,6 +46,7 @@ clean:
 	cd src/hexdump && make clean
 	cd src/tstansi && make clean
 	cd src/cls && make clean
+	cd src/cd && make clean
 
 veryclean: clean
 	rm -f testfile.txt
@@ -81,6 +83,7 @@ testfile.txt:
 	@cp src/hexdump/hexdump mnt/bin/hexdump
 	@cp src/tstansi/tstansi mnt/bin/tstansi
 	@cp src/cls/cls mnt/bin/cls
+	@cp src/cd/cd mnt/bin/cd
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
 	@cp hello1.txt mnt/testdata/hello1.txt

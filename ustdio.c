@@ -34,3 +34,11 @@ off_t lseek(int fd, off_t offset, int whence)
 //	assert(bdvt->_lseek);
     return bdvt->_lseek(fd, offset, whence);
 }
+
+int chdir(char *s)
+{
+
+	return bdvt->_chdir(s);
+
+}
+

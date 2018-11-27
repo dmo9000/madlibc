@@ -14,6 +14,8 @@ struct stat
 		uint32_t  st_gid;
 		/* from FUZIX */
 		uint16_t  st_rdev;	
+		uint16_t  st_dev;	
+    long    st_ctime;       /* modification time */
 
 };
 
