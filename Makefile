@@ -12,7 +12,13 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imload
 
 
-all: testfile.txt malltest libmadlibc.a md5sum utilities 8mb
+all: testfile.txt malltest libmadlibc.a md5sum utilities libgrx.a graphics 8mb 
+
+libgrx.a:
+	cd libgrx && make && make install
+
+graphics:
+	cd src/grxtest && make 
 
 utilities:
 	cd src/ls && make
@@ -47,8 +53,10 @@ clean:
 	cd src/hexdump && make clean
 	cd src/tstansi && make clean
 	cd src/imgload && make clean
+	cd src/grxtest && make clean
 	cd src/cls && make clean
 	cd src/cd && make clean
+	cd libgrx && make clean
 
 veryclean: clean
 	rm -f testfile.txt
@@ -85,6 +93,7 @@ testfile.txt:
 	@cp src/hexdump/hexdump mnt/bin/hexdump
 	@cp src/tstansi/tstansi mnt/bin/tstansi
 	@cp src/imgload/imgload mnt/bin/imgload
+	@cp src/grxtest/grxtest mnt/bin/grxtest
 	@cp src/cls/cls mnt/bin/cls
 	@cp src/cd/cd mnt/bin/cd
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1

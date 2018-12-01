@@ -22,3 +22,7 @@ src/hexdump/hexdump
 src/tstansi/tstansi
 src/cls/cls
 src/cd/cd
+src/imgload/imgload
+src/grxtest/grxtest
+libgrx/libgrx.a
+/mnt

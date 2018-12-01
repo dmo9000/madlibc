@@ -9,6 +9,7 @@ all:	$(GRX_OBJS) libgrx.a
 
 install:
 	sudo cp libgrx.a /usr/local/madlibc/lib/libgrx.a
+	sudo cp grx.h /usr/local/madlibc/include/
 
 clean:
 	rm -f *.o *.a
