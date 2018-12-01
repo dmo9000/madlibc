@@ -110,6 +110,7 @@ testfile.txt:
 	@mkdir mnt/ansi/
 	@cp files/*.ans mnt/ansi/
 	@cp files/frogprince.data mnt/testdata
+	/usr/local/gcc-68k/bin/m68k-elf-strip mnt/bin/*
 	@ls --inode -ln mnt
 	@sync
 	@sudo umount mnt

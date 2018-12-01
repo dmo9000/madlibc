@@ -12,5 +12,7 @@ void qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void *, co
 long int random(void);
 void srandom(unsigned int seed);
 void exit(int status);
+int abs(int j);
+
 
 #endif /* __STDLIB_H__ */
