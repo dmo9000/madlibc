@@ -1,5 +1,5 @@
 #include <bdos.h>
-//#include <assert.h>
+#include <time.h>
 
 extern _bdos_vtable *bdvt;
 
@@ -42,3 +42,8 @@ int chdir(char *s)
 
 }
 
+time_t time(time_t *tloc)
+{
+		return bdvt->_time(tloc);
+
+}

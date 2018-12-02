@@ -1,5 +1,6 @@
 #include "bdos.h"
 #include <stdio.h>
+#include <time.h>
 #include "string.h"
 #include "assert.h"
 #include "sbrk.h"
@@ -12,7 +13,7 @@ extern int main(int argc, char *argv[]);
 
 _bdos_vtable *bdvt = NULL;
 
-#define MIN_BDOS_VER	11
+#define MIN_BDOS_VER	24
 
 int _start(int argc, char *argv[])  __attribute__((section(".start")));
 

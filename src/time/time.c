@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	t1 = time(NULL);
  	tstr = ctime(&t1);
 	assert(tstr);
-	printf("%s", tstr);
+	printf("%s\r", tstr);
 	exit(0);
 
 }
