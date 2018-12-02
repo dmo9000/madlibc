@@ -29,6 +29,7 @@ utilities:
 	cd src/cls && make
 	cd src/cd && make
 	cd src/time && make
+	cd src/bogomips && make
 
 
 libmadlibc.a: $(MADLIBC_OBJS)
@@ -59,6 +60,7 @@ clean:
 	cd src/cls && make clean
 	cd src/cd && make clean
 	cd src/time && make clean
+	cd src/bogomips && make clean
 	cd libgrx && make clean
 
 veryclean: clean
@@ -100,6 +102,7 @@ testfile.txt:
 	@cp src/cls/cls mnt/bin/cls
 	@cp src/cd/cd mnt/bin/cd
 	@cp src/time/time mnt/bin/time
+	@cp src/bogomips/bogomips mnt/bin/bogomips
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
 	@cp hello1.txt mnt/testdata/hello1.txt
