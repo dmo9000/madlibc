@@ -9,7 +9,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
 			vprintf.o fopen.o fclose.o fread.o endian.o strncat.o strcat.o 
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imload
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time
 
 
 all: testfile.txt malltest libmadlibc.a md5sum utilities libgrx.a graphics 8mb 
@@ -28,6 +28,8 @@ utilities:
 	cd src/imgload && make
 	cd src/cls && make
 	cd src/cd && make
+	cd src/time && make
+
 
 libmadlibc.a: $(MADLIBC_OBJS)
 	$(AR) cru libmadlibc.a $(MADLIBC_OBJS)
@@ -56,6 +58,7 @@ clean:
 	cd src/grxtest && make clean
 	cd src/cls && make clean
 	cd src/cd && make clean
+	cd src/time && make clean
 	cd libgrx && make clean
 
 veryclean: clean
@@ -96,6 +99,7 @@ testfile.txt:
 	@cp src/grxtest/grxtest mnt/bin/grxtest
 	@cp src/cls/cls mnt/bin/cls
 	@cp src/cd/cd mnt/bin/cd
+	@cp src/time/time mnt/bin/time
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
 	@cp hello1.txt mnt/testdata/hello1.txt
