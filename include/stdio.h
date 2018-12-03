@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdarg.h>
 #include <sys/types.h>
 
 struct  _iobuf {
@@ -41,8 +42,10 @@ int fprintf(FILE *stream, const char *format, ...);
 void *malloc(size_t size);
 int fputc(int c, FILE *stream);
 int sprintf(char *str, const char *format, ...);
-
+int vsnprintf(char* buffer, size_t count, const char* format, va_list va);
 #define SEEK_SET	0
+#define SEEK_CUR	1
+#define SEEK_END	2
 #define BUFSIZ 8192
 
 /* End of file character.

@@ -23,3 +23,4 @@ struct termios
   };
 
 
+typedef struct termios TTY;

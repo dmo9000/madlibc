@@ -1,7 +1,8 @@
 #ifndef __STDBOOL_H__
 #define __STDBOOL_H__
 
-#define bool int
+//#define bool int
+typedef int bool;
 
 #define false 0
 #define FALSE 0
