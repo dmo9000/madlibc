@@ -69,6 +69,8 @@ static void printusage(FILE *out);
 static int namesort(const void *p1, const void *p2);
 static int revnamesort(const void *p1, const void *p2);
 
+bool has_ansi_color = false;
+
 
 bool is_dotdir(char *name) {
     if (strlen(name) > 2) {
@@ -255,6 +257,7 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
     }
     fputs(buf, stdout);
 
+		if (has_ansi_color) {
     if (S_ISDIR(statbuf->st_mode) && !is_dotdir(name)) {
         printf("\x1b\x5b""%2u""m", 34); /* foreground */
         printf("\x1b\x5b" "1m");				/* bold */
@@ -262,10 +265,9 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
         if (S_ISREG(statbuf->st_mode) && ((statbuf->st_mode & S_IXUSR) && (statbuf->st_mode & S_IXGRP) && (statbuf->st_mode & S_IXOTH))) {
             printf("\x1b\x5b""%2u""m", 32); /* foreground */
             printf("\x1b\x5b" "1m");        /* bold */
-
-
         }
     }
+		}
 
     printf("%s", name);
 
@@ -278,17 +280,16 @@ static void lsfile(char *name, struct stat *statbuf, int flags)
         }
     }
 
+		if (has_ansi_color) {
     if (S_ISDIR(statbuf->st_mode) && !is_dotdir(name)) {
         printf("\x1b\x5b" "21m");				/* bold off */
         printf("\x1b\x5b""%2u""m", 37); /* foreground */
     } else {
-
         if (S_ISREG(statbuf->st_mode) && ((statbuf->st_mode & S_IXUSR) && (statbuf->st_mode & S_IXGRP) && (statbuf->st_mode & S_IXOTH))) {
             printf("\x1b\x5b" "21m");				/* bold off */
             printf("\x1b\x5b""%2u""m", 37); /* foreground */
-
         }
-
+			}
     }
 
     printf("\r\n");
@@ -455,7 +456,16 @@ int main(int argc, char *argv[])
 {
     static char *def[1] = {"."};
     char *cp;
+		char *env_term = NULL;
     flags = 0;
+
+		env_term = getenv("TERM");
+
+		if (env_term && (strncmp(env_term, "ansi", 4) == 0 && strlen(env_term) == 4)) {
+					has_ansi_color = true;
+					}
+
+
     for (--argc, ++argv; argc > 0 && argv[0][0] == '-'; --argc, ++argv) {
         for (cp = *argv + 1; *cp; ++cp) {
             switch (*cp) {

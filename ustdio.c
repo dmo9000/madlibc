@@ -47,3 +47,8 @@ time_t time(time_t *tloc)
 		return bdvt->_time(tloc);
 
 }
+
+char *getenv(const char *name)
+{
+	return bdvt->_getenv(name);
+}

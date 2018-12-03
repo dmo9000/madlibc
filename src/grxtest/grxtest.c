@@ -4,21 +4,6 @@
 #include <assert.h>
 #include "grx.h"
 
-#define FILESIZE	737280
-
-int main()
-{
-	while (1) {
-		test1();
-		test2();
-		test3();
-		test4();
-		test5();
-	}
-
-
-}
-
 int test5()
 {
 
@@ -37,7 +22,7 @@ int test5()
       b = random() % 255;
       grx_fillbox(x0, y0, x1, y1, r, g, b);
       }
-
+	return 0;
 }
 
 
@@ -59,7 +44,7 @@ int test4()
       b = random() % 255;
       grx_box(x0, y0, x1, y1, r, g, b);
       }
-
+	return 0;
 }
 
 
@@ -88,6 +73,7 @@ int test3()
       b = random() % 255;
       grx_line(x0, y0, x1, y1, r, g, b);
       }
+	return 0;	
 
 }
 
@@ -109,3 +95,15 @@ int test1()
 
 	return 0;
 }
+
+int main()
+{
+  while (1) {
+    test1();
+    test2();
+    test3();
+    test4();
+    test5();
+    }
+}
+
