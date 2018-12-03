@@ -43,8 +43,13 @@ int fputc(int c, FILE *stream);
 int sprintf(char *str, const char *format, ...);
 
 #define SEEK_SET	0
-
-
 #define BUFSIZ 8192
+
+/* End of file character.
+   Some things throughout the library rely on this being -1.  */
+#ifndef EOF
+# define EOF (-1)
+#endif
+
 
 #endif /* __STDIO_H__ */

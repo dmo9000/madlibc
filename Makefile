@@ -7,7 +7,8 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			random.o sbrk.o assert.o exit.o strlen.o strcpy.o strdup.o perror.o malloc.o		\
 			fcntl_uspace.o fputs.o ustdio.o strlcat.o fflush.o fputc.o fprintf.o stat.o			\
 			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
-			vprintf.o fopen.o fclose.o fread.o endian.o strncat.o strcat.o time.o strchr.o 
+			vprintf.o fopen.o fclose.o fread.o endian.o strncat.o strcat.o time.o strchr.o	\
+			strstr.o memcmp.o getopt.o 
 
 UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time
 
@@ -73,6 +74,7 @@ install:
 	sudo cp uspace.lds /usr/local/madlibc/uspace.lds
 	sudo cp crt0.o /usr/local/madlibc/crt0.o
 	sudo cp libmadlibc.a /usr/local/madlibc/lib/libmadlibc.a
+	sudo cp libmadlibc.a /usr/local/madlibc/lib/libc.a
 	sudo cp -rfp include/* /usr/local/madlibc/include
 
 testfile.txt:

@@ -22,4 +22,6 @@ typedef __PID_T_TYPE 		__pid_t;
 typedef __GID_T_TYPE __uid_t;
 typedef __GID_T_TYPE __gid_t;
 
+typedef __pid_t pid_t;
+
 #endif /* __TYPES_H__ */
