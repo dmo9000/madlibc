@@ -8,7 +8,9 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			fcntl_uspace.o fputs.o ustdio.o strlcat.o fflush.o fputc.o fprintf.o stat.o			\
 			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
 			vprintf.o fopen.o fclose.o fread.o endian.o strncat.o strcat.o time.o strchr.o	\
-			strstr.o memcmp.o getopt.o 
+			strstr.o memcmp.o getopt.o fgetc.o fseek.o atoi.o memmove.o ftell.o ungetc.o		\
+			toupper.o tolower.o strtol.o strndup.o islower.o fwrite.o ferror.o feof.o				\
+			bsearch.o basename.o rindex.o atof.o strtod.o
 
 UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time
 
@@ -105,6 +107,7 @@ testfile.txt:
 	@cp src/cd/cd mnt/bin/cd
 	@cp src/time/time mnt/bin/time
 	@cp src/bogomips/bogomips mnt/bin/bogomips
+	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
 	@cp hello1.txt mnt/testdata/hello1.txt

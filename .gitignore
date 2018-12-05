@@ -25,5 +25,6 @@ src/cd/cd
 src/time/time
 src/imgload/imgload
 src/grxtest/grxtest
+src/bogomips/bogomips
 libgrx/libgrx.a
 /mnt
