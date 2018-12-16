@@ -1,5 +1,8 @@
 CC=/usr/local/gcc-68k/bin/m68k-elf-gcc
 AR=/usr/local/gcc-68k/bin/m68k-elf-ar
+
+## CC=/usr/local/gcc-68k/bin/m68k-elf-bdos-gcc
+## AR=/usr/local/gcc-68k/bin/m68k-elf-bdos-ar
 CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -Iinclude -I/usr/local/madlibc/include
 
 MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						\
@@ -10,9 +13,9 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			vprintf.o fopen.o fclose.o fread.o endian.o strncat.o strcat.o time.o strchr.o	\
 			strstr.o memcmp.o getopt.o fgetc.o fseek.o atoi.o memmove.o ftell.o ungetc.o		\
 			toupper.o tolower.o strtol.o strndup.o islower.o fwrite.o ferror.o feof.o				\
-			bsearch.o basename.o rindex.o atof.o strtod.o
+			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe
 
 
 all: testfile.txt malltest libmadlibc.a md5sum utilities libgrx.a graphics 8mb 
@@ -33,6 +36,8 @@ utilities:
 	cd src/cd && make
 	cd src/time && make
 	cd src/bogomips && make
+	cd src/tictactoe && make
+	cd src/test_stdin && make
 
 
 libmadlibc.a: $(MADLIBC_OBJS)
@@ -64,6 +69,8 @@ clean:
 	cd src/cd && make clean
 	cd src/time && make clean
 	cd src/bogomips && make clean
+	cd src/tictactoe && make clean
+	cd src/test_stdin && make clean
 	cd libgrx && make clean
 
 veryclean: clean
@@ -107,6 +114,8 @@ testfile.txt:
 	@cp src/cd/cd mnt/bin/cd
 	@cp src/time/time mnt/bin/time
 	@cp src/bogomips/bogomips mnt/bin/bogomips
+	@cp src/tictactoe/tictactoe mnt/bin/tictactoe
+	@cp src/test_stdin/test_stdin mnt/bin/test_stdin
 	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
