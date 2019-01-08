@@ -85,6 +85,11 @@ install:
 	sudo cp libmadlibc.a /usr/local/madlibc/lib/libmadlibc.a
 	sudo cp libmadlibc.a /usr/local/madlibc/lib/libc.a
 	sudo cp -rfp include/* /usr/local/madlibc/include
+	sudo cp -rfp include/* /usr/local/gcc-68k-bdos/m68k-elf-bdos/include 
+	sudo cp libmadlibc.a /usr/local/gcc-68k-bdos/m68k-elf-bdos/lib/libc.a
+	sudo cp libmadlibc.a /usr/local/gcc-68k-bdos/m68k-elf-bdos/lib/libmadlibc.a
+
+
 
 testfile.txt:
 	cp /dev/null testfile.txt

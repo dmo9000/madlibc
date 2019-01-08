@@ -28,3 +28,5 @@ src/grxtest/grxtest
 src/bogomips/bogomips
 libgrx/libgrx.a
 /mnt
+src/tictactoe/tictactoe
+src/test_stdin/test_stdin
