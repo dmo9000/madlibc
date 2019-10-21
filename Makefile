@@ -25,6 +25,7 @@ libgrx.a:
 
 graphics:
 	cd src/grxtest && make 
+	cd src/firedemo && make
 
 utilities:
 	cd src/ls && make
@@ -65,6 +66,7 @@ clean:
 	cd src/tstansi && make clean
 	cd src/imgload && make clean
 	cd src/grxtest && make clean
+	cd src/firedemo && make clean
 	cd src/cls && make clean
 	cd src/cd && make clean
 	cd src/time && make clean
@@ -115,6 +117,7 @@ testfile.txt:
 	@cp src/tstansi/tstansi mnt/bin/tstansi
 	@cp src/imgload/imgload mnt/bin/imgload
 	@cp src/grxtest/grxtest mnt/bin/grxtest
+	@cp src/firedemo/firedemo mnt/bin/firedemo
 	@cp src/cls/cls mnt/bin/cls
 	@cp src/cd/cd mnt/bin/cd
 	@cp src/time/time mnt/bin/time
