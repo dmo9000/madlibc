@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 		int i = 0;
 
 		if (argc < 2 || ! argv[1]) {
-			printf("usage: imgload <filename>\n");
+			printf("usage: imgload <filename>\r\n");
 			exit(1);	
 			}
 
@@ -36,5 +36,6 @@ int main(int argc, char *argv[])
 						perror("fopen");
 						}
 	
+		set_cursor(0,0);
     exit(0);
 }
