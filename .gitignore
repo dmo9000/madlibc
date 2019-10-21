@@ -30,3 +30,4 @@ libgrx/libgrx.a
 /mnt
 src/tictactoe/tictactoe
 src/test_stdin/test_stdin
+src/firedemo/firedemo
