@@ -15,7 +15,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			toupper.o tolower.o strtol.o strndup.o islower.o fwrite.o ferror.o feof.o				\
 			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil
 
 
 all: src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities libgrx.a graphics 8mb 
@@ -42,6 +42,7 @@ utilities:
 	cd src/bogomips && make
 	cd src/tictactoe && make
 	cd src/test_stdin && make
+	cd src/sysutil && make
 
 
 libmadlibc.a: $(MADLIBC_OBJS)
@@ -82,7 +83,7 @@ clean:
 veryclean: clean
 	rm -f testfile.txt
 	
-install:
+install: 8mb.img
 	cp 8mb.img ~/git-local/68kp/8mb.img
 	sudo mkdir -p /usr/local/madlibc/lib
 	sudo mkdir -p /usr/local/madlibc/include
@@ -128,6 +129,7 @@ testfile.txt:
 	@cp src/bogomips/bogomips mnt/bin/bogomips
 	@cp src/tictactoe/tictactoe mnt/bin/tictactoe
 	@cp src/test_stdin/test_stdin mnt/bin/test_stdin
+	cp src/sysutil/sysutil mnt/bin/sysutil
 	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
@@ -146,5 +148,6 @@ testfile.txt:
 	@cp files/blackjack-640x384.data mnt/testdata/blackjack.data
 	/usr/local/gcc-68k/bin/m68k-elf-strip mnt/bin/*
 	@ls --inode -ln mnt
+	@ls --inode -ln mnt/bin
 	@sync
 	@sudo umount mnt

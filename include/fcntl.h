@@ -18,13 +18,19 @@
 #define FD_STATE_STDERR     2
 #define FD_STATE_OPEN       10
 
+#define F_GETFL			3
+#define F_SETFL			4	
+
+#define O_NONBLOCK	00004000
+#define O_NDELAY	O_NONBLOCK
+
 typedef struct {
     int id;
     int oflags;
     /* FIXME: should be off_t ? */
-    uint32_t offset;
-//    FCB fcb;
+    uint32_t offset;				/* only 4GB supported for now */
     int fd;
+		int tflags;
 } _cfd;
 
 
