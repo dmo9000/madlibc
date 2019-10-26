@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "libvt.h"
 
-#define CHAR_ESCAPE 0x1B
 
+/*
 void
 clear_screen ()
 {
@@ -18,7 +19,7 @@ set_cursor(int x, int y)
     printf ("%c[%d;%dH", CHAR_ESCAPE, y+1, x+1);
 
 }
-
+*/
 
 int main()
 {

@@ -18,10 +18,13 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe
 
 
-all: testfile.txt malltest libmadlibc.a md5sum utilities libgrx.a graphics 8mb 
+all: src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities libgrx.a graphics 8mb 
 
 libgrx.a:
 	cd libgrx && make && make install
+
+src/libvt/libvt.a:
+	cd src/libvt && make 
 
 graphics:
 	cd src/grxtest && make 
@@ -60,6 +63,7 @@ md5sum:    libmadlibc.a crt0.o md5sum.o
 
 clean:
 	rm -f shim *.out *.srec *.o malltest md5sum *.img hello?.txt
+	cd src/libvt && make clean
 	cd src/ls && make clean
 	cd src/cat && make clean
 	cd src/hexdump && make clean
@@ -139,7 +143,7 @@ testfile.txt:
 	@mkdir mnt/ansi/
 	@cp files/*.ans mnt/ansi/
 	@cp files/frogprince.data mnt/testdata
-	@cp files/blackjack-640x384.data mnt/testdata
+	@cp files/blackjack-640x384.data mnt/testdata/blackjack.data
 	/usr/local/gcc-68k/bin/m68k-elf-strip mnt/bin/*
 	@ls --inode -ln mnt
 	@sync
