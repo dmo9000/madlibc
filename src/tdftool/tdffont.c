@@ -171,6 +171,9 @@ bool render_glyph(TDFFont *render_font, unsigned c)
         assert (rc != -1);
         render_font->data = malloc(render_font->blocksize);
         rc = fread(render_font->data, render_font->blocksize, 1, render_font->parent_tdf->fh);
+				if (rc != 1) {
+					printf("rc = %d\n", rc);
+					}
         assert((bool)(rc == 1));
     }
 

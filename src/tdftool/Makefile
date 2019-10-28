@@ -18,7 +18,7 @@ PADDING=`printf '%*s' 110`
 
 all: libansicanvas.a tdftool 
 
-libansicanvas.a: $(LIBANSICANVAS_OBJS)
+libansicanvas.a: $(LIBANSICANVAS_OBJS) ../../libmadlibc.a
 	ar cru libansicanvas.a $(LIBANSICANVAS_OBJS)
 
 tdftool: $(TDFTOOL_OBJS) libansicanvas.a
@@ -29,14 +29,4 @@ tdftool: $(TDFTOOL_OBJS) libansicanvas.a
 clean:
 	rm -f tdftool rawfont ansiread *.o *.a *.core
 
-veryclean: clean
-	rm -rf tests/pass/*.ans
-	rm -rf tests/fail/*.ans
-	rm -rf tests/pass/utf8/*.ans
 
-install:
-	sudo cp tdftool /usr/bin/tdftool
-	sudo cp *.a /usr/lib/
-
-test: tdftool
-	./test.sh
