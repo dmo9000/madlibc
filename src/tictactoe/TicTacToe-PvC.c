@@ -64,7 +64,7 @@ int check(){
 
 int main(){
   
-	clear_screen();
+  system("clear");
   
   time_t t;                          // Declaring time variable for rand()
   srand((unsigned) time(&t));        // Seeding srand() with time
@@ -74,17 +74,17 @@ int main(){
   char ch='|';
   
   while(i<9&&(flag!=1&&flag!=2))
-    { printf("\r\nTic Tac Toe (X vs O)! \r\n\r\n");
-      printf("Use positions as (1,0),(0,2),(2,2)! \r\n\r\n\r\n");
+    { printf("\nTic Tac Toe (X vs O)! \n\n");
+      printf("Use positions as (1,0),(0,2),(2,2)! \n\n\n");
           
       for(j=0;j<3;j++)               // Printing the array elements
-	{ printf("   %c  %c  %c  %c  %c \r\n",data[j][0],ch,data[j][1],ch,data[j][2]);
+	{ printf("   %c  %c  %c  %c  %c \n",data[j][0],ch,data[j][1],ch,data[j][2]);
 	  if(j!=2)
-	    { printf("------------------- \r\n");
+	    { printf("------------------- \n");
 	    }
 	}
       
-      printf("\r\n\r\n");
+      printf("\n\n");
 
       if(i%2==0)                    // Alternating player-computer moves
 	{ printf("Player: ");
@@ -92,7 +92,7 @@ int main(){
 	  chk=0;
 	  do
 	    { if(data[pos1][pos2]=='X'||data[pos1][pos2]=='O')
-		{ printf("\r\nAlready used! Re-enter:");
+		{ printf("\nAlready used! Re-enter:");
 		  scanf("%d,%d",&pos1,&pos2);
 		  chk=0;
 		}
@@ -117,7 +117,7 @@ int main(){
 		}
 	    }while(chk==0);
 
-	  printf("Computer: %d,%d \r\n",pos1,pos2);
+	  printf("Computer: %d,%d \n",pos1,pos2);
 	  data[pos1][pos2]='O';
 	  flag=check();
 	}
@@ -125,31 +125,30 @@ int main(){
       i++;
       
       if(flag==3)
-	{ 
-		clear_screen();                  // Clears screen
+	{ system("clear");                  // Clears screen
 	}
      }
     
-	clear_screen();
-  printf("\r\nTic Tac Toe (X vs O)! \r\n\r\n");
-  printf("Use positions as (1,0),(0,2),(2,2)! \r\n\r\n\r\n");
+  system("clear");                   // Final Result Display
+  printf("\nTic Tac Toe (X vs O)! \n\n");
+  printf("Use positions as (1,0),(0,2),(2,2)! \n\n\n");
           
   for(j=0;j<3;j++)        
-    { printf("   %c  %c  %c  %c  %c \r\n",data[j][0],ch,data[j][1],ch,data[j][2]);
+    { printf("   %c  %c  %c  %c  %c \n",data[j][0],ch,data[j][1],ch,data[j][2]);
       if(j!=2)
-	{ printf("------------------- \r\n");
+	{ printf("------------------- \n");
 	}
     }
       
-  printf("\r\n");
+  printf("\n");
   if(flag==1)
-    { printf("\r\n\r\n Player wins! :D\r\n\r\n");
+    { printf("\n\n Player wins! :D\n\n");
     }
   else if(flag==2)
-    { printf("\r\n\r\n Computer wins! :D\r\n\r\n");
+    { printf("\n\n Computer wins! :D\n\n");
     }
   else
-    { printf("\r\n\r\n Its a Tie!\r\n\r\n");
+    { printf("\n\n Its a Tie!\n\n");
     }
 	
 	return 0;	

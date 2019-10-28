@@ -19,6 +19,7 @@
 int   opterr = 1;		/* error => print message */
 int   optind = 1;		/* next argv[] index */
 const char *optarg = NULL;	/* option parameter if any */
+int optopt;
 
 static int Err(const char *name, const char *mess, int c)
 /* returns '?' */

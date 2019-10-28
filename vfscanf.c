@@ -132,6 +132,7 @@ int vfscanf(FILE *fp, const char *fmt, va_list ap)
         return (0);
 
     c = fgetc(fp);
+
     while (c > 0)
     {
         store = 0;
