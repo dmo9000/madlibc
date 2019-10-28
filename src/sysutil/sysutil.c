@@ -40,6 +40,7 @@ int main()
 
 		set_cursor(1, 10);
 		int flags = fcntl(0, F_GETFL, 0);
+		int oldflags = flags;
 		fcntl(0, F_SETFL, flags | O_NONBLOCK);
 		flags = fcntl(0, F_GETFL, 0);
 
@@ -114,8 +115,10 @@ int main()
 	}
 
 finish:
-		/* turn off cursor */
-		p[0] = 0x00;
+		/* return to cooked mode */
+		fcntl(0, F_SETFL, oldflags);
+		/* turn off hw cursor */
+		//p[0] = 0x00;
 		vt_setbold(false);
 		vt_setfg(ANSI_FOREGROUND_WHITE);
 		vt_setbg(ANSI_BACKGROUND_BLACK);
