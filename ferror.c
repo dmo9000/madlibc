@@ -3,6 +3,6 @@
 
 int ferror(FILE *stream)
 {
-	assert(stream);
-	assert(NULL);
+    assert(stream);
+    assert(NULL);
 }

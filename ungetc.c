@@ -4,6 +4,6 @@
 
 int ungetc(int c, FILE *fp)
 {
-	assert(fp);
-	return EOF;
+    assert(fp);
+    return EOF;
 }

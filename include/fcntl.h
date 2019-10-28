@@ -30,7 +30,6 @@ typedef struct {
     /* FIXME: should be off_t ? */
     uint32_t offset;				/* only 4GB supported for now */
     int fd;
-		int tflags;
 } _cfd;
 
 
@@ -43,6 +42,7 @@ typedef struct _fd {
     uint32_t limit;
     ext2_inode fd_inode;
     ext2_fs *fs;
+		int tflags;
 } _fd;
 
 int open(const char *pathname, int flags);

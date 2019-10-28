@@ -8,9 +8,9 @@
 
 int toupper(int c)
 {
-	uint8_t cb = c;
-	if ((cb >= 'a') && (cb <= 'z'))
-		cb ^= 0x20;
-	return cb;
+    uint8_t cb = c;
+    if ((cb >= 'a') && (cb <= 'z'))
+        cb ^= 0x20;
+    return cb;
 }
 

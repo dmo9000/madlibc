@@ -6,5 +6,5 @@
 /**************************** atoi.c ****************************/
 int atoi(const char *str)
 {
-	return (int) strtol(str, NULL, 10);
+    return (int) strtol(str, NULL, 10);
 }

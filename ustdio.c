@@ -5,14 +5,15 @@ extern _bdos_vtable *bdvt;
 
 int open(const char *pathname, int flags)
 {
-
     return bdvt->_open(pathname, flags);
 }
 
 
 ssize_t read(int fd, void *buf, size_t count)
 {
-    return bdvt->_read(fd, buf, count);
+    int r = 0;
+    r = bdvt->_read(fd, buf, count);
+    return r;
 }
 
 int close(int fd)
@@ -42,11 +43,11 @@ int chdir(char *s)
 
 time_t time(time_t *tloc)
 {
-		return bdvt->_time(tloc);
+    return bdvt->_time(tloc);
 
 }
 
 char *getenv(const char *name)
 {
-	return bdvt->_getenv(name);
+    return bdvt->_getenv(name);
 }

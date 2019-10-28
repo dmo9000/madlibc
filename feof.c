@@ -3,7 +3,7 @@
 
 int feof(FILE *stream)
 {
-	assert(stream);
-	assert(NULL);
-	return -1;
+    assert(stream);
+    assert(NULL);
+    return -1;
 }

@@ -14,11 +14,11 @@ static void remove_suffix(char *name, char *suffix)
     sp = suffix + strlen(suffix);
 
     while (np > name && sp > suffix)
-	if (*--np != *--sp)
-	    return;
+        if (*--np != *--sp)
+            return;
 
     if (np > name)
-	*np = '\0';
+        *np = '\0';
 }
 
 
@@ -37,7 +37,7 @@ void strip_trailing_slashes(char *path)
 
     last = strlen(path) - 1;
     while (last > 0 && path[last] == '/')
-	path[last--] = '\0';
+        path[last--] = '\0';
 }
 
 

@@ -8,9 +8,9 @@
 
 int tolower(int c)
 {
-	uint8_t cb = c;
-	if ((cb >= 'A') && (cb <= 'Z'))
-		cb ^= 0x20;
-	return cb;
+    uint8_t cb = c;
+    if ((cb >= 'A') && (cb <= 'Z'))
+        cb ^= 0x20;
+    return cb;
 }
 

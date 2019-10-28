@@ -7,5 +7,5 @@
 
 char *rindex(const char *src, int chr)
 {
-  return strrchr(src, chr);
+    return strrchr(src, chr);
 }

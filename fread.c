@@ -40,8 +40,8 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
 
 //		puts("\r\n");
 //    printf("fread(0x%08lx, stream->_file = %d)\r\n", stream, fileno(stream));
-	
-		assert(stream);
+
+    assert(stream);
 
 //    for (i = 0; i < nmemb; i++) {
     rd = read(stream->_file, myptr, size * nmemb);
