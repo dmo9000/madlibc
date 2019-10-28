@@ -13,10 +13,10 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			vprintf.o fopen.o fclose.o fread.o endian.o strncat.o strcat.o time.o strchr.o	\
 			strstr.o memcmp.o getopt.o fgetc.o fseek.o atoi.o memmove.o ftell.o ungetc.o		\
 			toupper.o tolower.o strtol.o strndup.o islower.o fwrite.o ferror.o feof.o				\
-			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o \
-			rand.o 
+			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o          \
+			rand.o isprint.o ntohs.o 
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/tdftool/tdftool
 
 
 all: libgrx.a src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities graphics 8mb 
@@ -46,6 +46,7 @@ utilities:
 	cd src/sysutil && make
 	cd src/hangman && make
 	cd src/cal && make
+	cd src/tdftool && make
 
 
 libmadlibc.a: $(MADLIBC_OBJS)
@@ -135,6 +136,7 @@ testfile.txt:
 	cp src/sysutil/sysutil mnt/bin/sysutil
 	cp src/hangman/hangman mnt/bin/hangman
 	cp src/cal/cal mnt/bin/cal
+	cp src/tdftool/tdftool mnt/bin/tdftool
 	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
