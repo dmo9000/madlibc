@@ -33,3 +33,4 @@ src/test_stdin/test_stdin
 src/firedemo/firedemo
 src/libvt/libvt.a
 src/sysutil/sysutil
+src/cal/cal
