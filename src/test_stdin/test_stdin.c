@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
 	printf("Testing read(0, &buffer, 15)\r\n");
 	memset(&buffer, 0, 16);
-	n = read(0, &buffer, 1);
+	n = read(0, &buffer, 15);
 	puts("\r\n");
 	printf("read %d bytes, string=[%s]\r\n", n, buffer);	
 

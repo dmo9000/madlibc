@@ -18,7 +18,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil
 
 
-all: src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities libgrx.a graphics 8mb 
+all: libgrx.a src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities graphics 8mb 
 
 libgrx.a:
 	cd libgrx && make && make install
