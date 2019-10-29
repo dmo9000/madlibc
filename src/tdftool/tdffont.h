@@ -1,5 +1,8 @@
 #include "ansicanvas.h"
 
+#define DOS_LINETERM	"\r\n"
+#define UNX_LINETERM	"\n"
+
 struct tdf_char {
     uint8_t ascii_value;
     uint16_t offset;

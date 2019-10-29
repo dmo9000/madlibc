@@ -14,6 +14,8 @@
 
 #define EXIT_FAILURE	1
 
+bool big_endian = false;
+
 char *strdup(const char *s);
 //int getopt(int argc, char * const argv[], const char *optstring);
 typedef signed char int8_t;
@@ -121,6 +123,14 @@ int main(int argc, char *argv[])
 
     }
 
+    if ( htonl(47) == 47 ) {
+        // Big endian
+        big_endian = true;
+    } else {
+        // Little endian.
+        big_endian = false;
+    }
+
     /* TODO: a lot of this stuff should be moved into tdffont.c */
 
 
@@ -186,8 +196,8 @@ int main(int argc, char *argv[])
             exit(1);
         } else {
 
-            if (!IS_BIG_ENDIAN) {
-                font_sequence_marker = ntohl(font_sequence_marker);
+            if (!big_endian) {
+                font_sequence_marker = __builtin_bswap32(font_sequence_marker);
             }
 
             //printf("my_tdf.fontcount = %u\r\n\r\n", my_tdf.fontcount);
@@ -202,11 +212,11 @@ int main(int argc, char *argv[])
             new_font->average_height = 0;
             new_font->defined_characters = 0;
 
-
+            // err bit redundant, or should be higher ...
             assert(new_font);
 
             if (font_sequence_marker != 0x55aa00ff) {
-                printf("%s: at font %u, expected 0x55aa00ff, but got 0x%08x\r\n\r\n",
+                printf("%s: at font %u, expect 0x55aa00ff, but got 0x%08x\r\n\r\n",
                        basename(input_filename),  my_tdf.fontcount, font_sequence_marker);
                 exit(1);
             }
@@ -271,8 +281,10 @@ int main(int argc, char *argv[])
                 printf("couldn't read blocksize\r\n\r\n");
             }
 
-            if (IS_BIG_ENDIAN) {
-                new_font->blocksize = ntohs(new_font->blocksize);
+            /* on big_endian platforms this should be flipped */
+
+            if (big_endian) {
+                new_font->blocksize = __builtin_bswap16(new_font->blocksize);
             }
 
             assert(new_font->blocksize >= 0);
@@ -287,6 +299,14 @@ int main(int argc, char *argv[])
                     printf("failed to get character %u offset\r\n\r\n", ii);
                     exit(1);
                 }
+
+                /* byteswap characters.offset if we are on bigendian */
+                if (big_endian) {
+                    new_font->characters[ii].offset =
+                        __builtin_bswap16(new_font->characters[ii].offset);
+                }
+
+
                 /* setup empty rasters */
                 for (jj = 0; jj < MAX_LINES; jj++) {
                     new_font->characters[ii].char_rasters[jj] = create_new_raster();
@@ -397,7 +417,7 @@ int main(int argc, char *argv[])
 
         for (ii = 0; ii < (int) strlen(message); ii++) {
             //printf("+++++ PUSHING GLYPH %u ['%c']\r\n\r\n", ii, message[ii]);
-            (void) fflush(NULL);
+            (void) fflush(stdout);
             assert(push_glyph(my_canvas, render_font, (uint8_t) message[ii]));
         }
 

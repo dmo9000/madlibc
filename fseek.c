@@ -14,7 +14,8 @@ int fseek(FILE *stream, long offset, int whence)
 				case SEEK_CUR:
 				case SEEK_END:
     			v = lseek(stream->_file, offset, whence);
-					return offset;
+					/* FIXME: error checking */
+					return 0;
 					break;
 				default:
 					printf("fseek: unsupported whence mode '%d'\n", whence);
