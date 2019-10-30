@@ -24,7 +24,9 @@ typedef struct _iobuf FILE;
 #define stdout          (&filehandles[1])
 #define stderr          (&filehandles[2])
 
-
+#define STDIN_FILENO   0
+#define STDOUT_FILENO  1
+#define STDERR_FILENO  2
 
 int fileno(FILE *f);
 int printf(const char *format, ...);

@@ -16,7 +16,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o          \
 			rand.o isprint.o ntohs.o htonl.o 
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/tdftool/tdftool
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/tdftool/tdftool src/pong/pong
 
 
 all: libgrx.a src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities graphics 8mb 
@@ -43,10 +43,12 @@ utilities:
 	cd src/bogomips && make
 	cd src/tictactoe && make
 	cd src/test_stdin && make
+	cd src/test_std && make
 	cd src/sysutil && make
 	cd src/hangman && make
 	cd src/cal && make
 	cd src/tdftool && make
+	cd src/pong && make
 
 
 libmadlibc.a: $(MADLIBC_OBJS)
@@ -68,9 +70,7 @@ md5sum:    libmadlibc.a crt0.o md5sum.o
 
 clean:
 	rm -f shim *.out *.srec *.o malltest md5sum *.img hello?.txt
-	cd src/libvt && make clean
 	cd src/ls && make clean
-	cd src/cat && make clean
 	cd src/hexdump && make clean
 	cd src/tstansi && make clean
 	cd src/imgload && make clean
@@ -82,7 +82,10 @@ clean:
 	cd src/bogomips && make clean
 	cd src/tictactoe && make clean
 	cd src/test_stdin && make clean
+	cd src/test_std && make clean
+	cd src/tdftool && make clean
 	cd libgrx && make clean
+	cd src/libvt && make clean
 
 veryclean: clean
 	rm -f testfile.txt
@@ -121,6 +124,8 @@ testfile.txt:
 	@mkdir mnt/bin
 	@mkdir mnt/testdata
 	@cp src/ls/ls mnt/bin/ls
+	# don't use symlink! causes crashes right now
+	# cd mnt/bin/ && ln -sf ls dir & cd ../..
 	@cp src/cat/cat mnt/bin/cat
 	@cp src/hexdump/hexdump mnt/bin/hexdump
 	@cp src/tstansi/tstansi mnt/bin/tstansi
@@ -133,11 +138,14 @@ testfile.txt:
 	@cp src/bogomips/bogomips mnt/bin/bogomips
 	@cp src/tictactoe/tictactoe mnt/bin/tictactoe
 	@cp src/test_stdin/test_stdin mnt/bin/test_stdin
+	@cp src/test_std/test_std mnt/bin/test_std
 	cp src/sysutil/sysutil mnt/bin/sysutil
 	cp src/hangman/hangman mnt/bin/hangman
 	cp src/cal/cal mnt/bin/cal
 	cp src/tdftool/tdftool mnt/bin/tdftool
-	cp src/tdftool/ZANE.TDF mnt/zane.tdf
+	cp src/tdftool/ZANE.TDF mnt/
+	cp src/tdftool/ZETRAX.TDF mnt/
+	cp src/pong/pong mnt/bin/pong
 	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
