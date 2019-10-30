@@ -143,8 +143,7 @@ testfile.txt:
 	cp src/hangman/hangman mnt/bin/hangman
 	cp src/cal/cal mnt/bin/cal
 	cp src/tdftool/tdftool mnt/bin/tdftool
-	cp src/tdftool/ZANE.TDF mnt/
-	cp src/tdftool/ZETRAX.TDF mnt/
+	cp src/tdftool/*.TDF mnt/
 	cp src/pong/pong mnt/bin/pong
 	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
