@@ -48,7 +48,7 @@
 
 #ifdef OSK		/* os9/68k can take advantage of both */
 #define LONGINT
-#define INTSPRINTF
+//#define INTSPRINTF
 #endif
 
 /* This must be a typedef not a #define! */
@@ -208,9 +208,12 @@ va_list args;
 continue_format:
             switch(c = *format++) {
             case 's':
+						/* exploding somwhere after here ... these two functions are calling each other ... <sigh> */
                 *tp++ = c;
                 *tp = '\0';
                 count += fprintf(dest, tempfmt, va_arg(args, char *));
+								printf("FPRINTF\n\r");
+								while (1) { } 
                 break;
             case 'u':
             case 'x':

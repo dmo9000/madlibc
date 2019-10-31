@@ -35,5 +35,15 @@ int main(int argc, char *argv[])
 	putchar('P');
 	putchar('\n');
 	putchar('\r');
+
+	putchar('N');
+	putchar('\n');
+	putchar('\r');
+
+	/* fprintf */
+
+	fprintf(stdout, "FPRINTF_STDOUT\n\r"); 
+	fprintf(stdout, "FPRINTF_STDOUT %s\n\r", "foo"); 
+
 	exit(0);
 }

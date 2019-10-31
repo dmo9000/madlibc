@@ -191,7 +191,7 @@ static void printsep(char *name)
      */
     char type = !name+1;
     if (prevtype && (type==1 || prevtype==1))
-        fputc('\r\n', stdout);
+        fputs('\r\n', stdout);
     if (type == 1)
         printf("%s:\r\n", name);
     prevtype = type;
