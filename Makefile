@@ -16,7 +16,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o dump.o 						
 			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o          \
 			rand.o isprint.o ntohs.o htonl.o 
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/tdftool/tdftool src/pong/pong
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong
 
 
 all: libgrx.a src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities graphics 8mb 
@@ -47,7 +47,6 @@ utilities:
 	cd src/sysutil && make
 	cd src/hangman && make
 	cd src/cal && make
-	cd src/tdftool && make
 	cd src/pong && make
 
 
@@ -83,7 +82,6 @@ clean:
 	cd src/tictactoe && make clean
 	cd src/test_stdin && make clean
 	cd src/test_std && make clean
-	cd src/tdftool && make clean
 	cd libgrx && make clean
 	cd src/libvt && make clean
 
