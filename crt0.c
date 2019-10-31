@@ -13,7 +13,7 @@ extern int main(int argc, char *argv[]);
 
 _bdos_vtable *bdvt = NULL;
 
-#define MIN_BDOS_VER	24
+#define MIN_BDOS_VER 36
 
 int _start(int argc, char *argv[])  __attribute__((section(".start")));
 

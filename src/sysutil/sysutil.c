@@ -56,6 +56,7 @@ int main()
 			static uint16_t last_mouse_x = 0;
 			static uint16_t last_mouse_y = 0;
 			int n = 0;
+			uint16_t nx1, ny1, nx2, ny2;
 
 			last_mouse_x = mouse_x;
 			last_mouse_y = mouse_y;
@@ -66,7 +67,25 @@ int main()
 
 			if ((mouse_x != last_mouse_x) || (mouse_y != last_mouse_y)) {
 				printf("mouse_x = %04u, mouse_y = %04u", mouse_x, mouse_y);
-				grx_fillbox(mouse_x-4, mouse_y -4, mouse_x+4, mouse_y+4, 255, 0, 0);
+
+				nx1 = mouse_x-4;
+				ny1 = mouse_y-4;
+				nx2 = mouse_x+4;
+				ny2 = mouse_y+4;
+
+			/* clipping */
+
+				if (nx1 < 0) nx1 = 0;
+				if (ny1 < 0) ny1 = 0;
+				if (nx1 > 639) nx1 = 639;
+				if (ny1 > 383) ny1 = 383;
+
+				if (nx2 < 0) nx2 = 0;
+				if (ny2 < 0) ny2 = 0;
+				if (nx2 > 639) nx2 = 639;
+				if (ny2 > 383) ny2 = 383;
+
+				grx_fillbox(nx1, ny1, nx2, ny2, 255, 0, 0);
 				} else {
 				//printf("*** NO MOVEMENT ***");
 				}
