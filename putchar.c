@@ -11,8 +11,12 @@ int putc(int c, FILE *stream)
 
 int putchar(int c)
 {
-    char * p = (char *)0xff1002;
-    p[0] = c;
+	char strng[2];
+	strng[0] = c;
+	strng[1] = 0;
+//    char * p = (char *)0xff1002;
+//    p[0] = c;
+		write(STDOUT_FILENO, &strng, 1);
     return 0;
 }
 

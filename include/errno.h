@@ -1,3 +1,4 @@
+#define	EPERM		 1	/* Operation not permitted */
 #define ENOENT      2       /* no such file or directory */
 #define EIO         5       /* I/O error */
 #define E2BIG       7       /* Argument list too long */

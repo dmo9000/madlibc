@@ -8,6 +8,9 @@ const char *strerror(int en)
     case 0:
         return (const char *) "Success";
         break;
+		case EPERM:
+        return (const char *) "Permission denied";
+        break;
     case ENOENT:
         return (const char *) "No such file or directory";
         break;
