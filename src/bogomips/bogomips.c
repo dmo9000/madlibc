@@ -80,7 +80,7 @@ main()
       bogo = loops_per_sec/500000L;
       sub = loops_per_sec/5000L;
       sub %=100;
-      printf("\nok - %lu.%s%lu BogoMips\n\n",
+      printf("\nok - %lu.%s%lu BogoMips\n\r",
 			bogo,
 			(sub<10)?"0":"",
 			sub
@@ -89,6 +89,6 @@ main()
     }
   }
 
-  printf("failed\r\n");
+  printf("failed\n\r");
   return -1;
 }

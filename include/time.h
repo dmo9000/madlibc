@@ -23,7 +23,7 @@ struct tm
 # endif
 };
 
-static sunday (register struct tm *t, register int d);
+//static sunday (register struct tm *t, register int d);
 char *ctime(const time_t *timep);
 time_t time(time_t *tloc);
 

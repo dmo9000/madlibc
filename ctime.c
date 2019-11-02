@@ -117,7 +117,7 @@ long *tim;
  *   * The value is the day number of the first
  *    * Sunday on or after the day.
  *     */
-static sunday (register struct tm *t, register int d)
+int sunday (register struct tm *t, register int d)
 //register struct tm *t;
 //register int d;
 {

@@ -4,12 +4,18 @@
 #include <unistd.h>
 #include <errno.h>
 #include <assert.h>
-
+#include <madlibc.h>
 
 int main(int argc, char *argv[])
 {
 	
 	int n = 0;
+
+	printf("madlibc version: %u.%u.%u\n\r", 
+					MADLIBC_VER_MAJOR,
+					MADLIBC_VER_MINOR,
+					MADLIBC_VER_PATCH);
+
 	n = 	write(STDOUT_FILENO, "WRITE_STDOUT\n\r", 14);
 	printf(" (wrote %d characters)\r\n", n);
 
@@ -43,7 +49,7 @@ int main(int argc, char *argv[])
 	/* fprintf */
 
 	fprintf(stdout, "FPRINTF_STDOUT\n\r"); 
-	fprintf(stdout, "FPRINTF_STDOUT %s\n\r", "foo"); 
+//	fprintf(stdout, "FPRINTF_STDOUT %s\n\r", "foo"); 
 
 	exit(0);
 }

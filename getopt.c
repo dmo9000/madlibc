@@ -49,19 +49,28 @@ int getopt(int argc, const char *argv[], const char *optstring)
 
     optarg = NULL;
 
-    if (sp == 1)			/* fresh argument */
+    //printf("getopt(%d, ..., %s)\n", argc, optstring);
+
+    if (sp == 1) {			/* fresh argument */
+    		//printf("getopt -> fresh argument (%d/%d, ..., %s) -> %s\n\r", optind, argc, optstring, argv[optind]);
         if (optind >= argc	/* no more arguments */
                 || argv[optind][0] != '-'	/* no more options */
                 || argv[optind][1] == '\0'	/* not option; stdin */
-           )
+           ) {
+    				//printf("getopt -> no more arguments (%d/%d, ..., %s)\n\r", optind, argc, optstring);
             return EOF;
-        else if (strcmp(argv[optind], "--") == 0)
-        {
-            ++optind;		/* skip over "--" */
-            return EOF;		/* "--" marks end of options */
         }
+    }
+
+    if (strcmp(argv[optind], "--") == 0)
+    {
+    		//printf("getopt -> argument was -- (%d/%d, ..., %s)\n\r", optind, argc, optstring);
+        ++optind;		/* skip over "--" */
+        return EOF;		/* "--" marks end of options */
+    }
 
     c = argv[optind][sp];	/* option letter */
+		//printf("%d [%s] option letter = %d [%c]\r\n", optind, argv[optind], c, c);
     osp = sp++;			/* get ready for next letter */
 
 #ifndef STRICT
@@ -69,14 +78,21 @@ int getopt(int argc, const char *argv[], const char *optstring)
 #endif
     if (argv[optind][sp] == '\0')/* end of argument */
     {
+				//printf("end of argument\n\r");
         ++optind;			/* get ready for next try */
         sp = 1;			/* beginning of next argument */
     }
 
+	//	printf("c = %c\n\r", c);
+		optopt = c;
+
     if (c == ':' || c == '?'	/* optstring syntax conflict */
             || (cp = strchr(optstring, c)) == NULL	/* not found */
-       )
-        return Err(argv[0], "illegal option", c);
+       ) {
+					//printf("ILLEGAL OPTION %c\n", c);
+        	//return Err(argv[0], "illegal option", c);
+					return '?';
+					}
 
     if (cp[1] == ':')		/* option takes parameter */
     {
