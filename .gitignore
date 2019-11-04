@@ -34,3 +34,4 @@ src/firedemo/firedemo
 src/libvt/libvt.a
 src/sysutil/sysutil
 src/cal/cal
+src/tdftool/tdftool

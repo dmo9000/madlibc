@@ -83,7 +83,6 @@ int getopt(int argc, const char *argv[], const char *optstring)
         sp = 1;			/* beginning of next argument */
     }
 
-	//	printf("c = %c\n\r", c);
 		optopt = c;
 
     if (c == ':' || c == '?'	/* optstring syntax conflict */
@@ -91,41 +90,33 @@ int getopt(int argc, const char *argv[], const char *optstring)
        ) {
 					//printf("ILLEGAL OPTION %c\n", c);
         	//return Err(argv[0], "illegal option", c);
+					/* handle this here, for now since Err() uses fprintf() which is currently busted */
 					return '?';
 					}
 
     if (cp[1] == ':')		/* option takes parameter */
     {
-#ifdef STRICT
-        if (osp != 1)
-            return Err(argv[0],
-                       "option must not be clustered",
-                       c
-                      );
-
-        if (sp != 1)		/* reset by end of argument */
-            return Err(argv[0],
-                       "option must be followed by white space",
-                       c
-                      );
-
-#else
         if (oind == optind)	/* argument w/o whitespace */
         {
+					printf("getopt.c: option w/o whitespace\n\r");
+					while (1) { } 
             optarg = &argv[optind][sp];
             sp = 1;		/* beginning of next argument */
         }
 
         else
-#endif
-        if (optind >= argc)
+        if (optind >= argc) {
+					/* handle this here, for now since Err() uses fprintf() which is currently busted */
+					return ':';
             return Err(argv[0],
                        "option requires an argument",
                        c
                       );
 
-        else			/* argument w/ whitespace */
+        } else	{		/* argument w/ whitespace */
+					//printf("getopt.c: option with whitespace\n\r");
             optarg = argv[optind];
+						}
 
         ++optind;			/* skip over parameter */
     }

@@ -5,8 +5,8 @@ AR=/usr/local/gcc-68k/bin/m68k-elf-ar
 ## AR=/usr/local/gcc-68k/bin/m68k-elf-bdos-ar
 CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -Iinclude -I/usr/local/madlibc/include
 
-MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 						\
-			strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o 		\
+MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 										\
+			strerror.o puts.o putchar.o getchar.o strcmp.o strncpy.o memchr.o 							\
 			random.o sbrk.o assert.o exit.o strlen.o strcpy.o strdup.o perror.o malloc.o		\
 			fcntl_uspace.o fputs.o ustdio.o strlcat.o fflush.o fputc.o fprintf.o stat.o			\
 			ctime.o ftime.o strrchr.o opendir.o opendir_r.o readdir.o closedir.o qsort.o		\
@@ -14,9 +14,11 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 						\
 			strstr.o memcmp.o getopt.o fgetc.o fseek.o atoi.o memmove.o ftell.o ungetc.o		\
 			toupper.o tolower.o strtol.o strndup.o islower.o fwrite.o ferror.o feof.o				\
 			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o          \
-			rand.o isprint.o ntohs.o htonl.o 
+			rand.o isprint.o ntohs.o htonl.o rewind.o strtok.o remove.o fgets.o strspn.o		\
+			strpbrk.o fscanf.o
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip
+
 
 
 all: libgrx.a src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities graphics 8mb 
@@ -48,6 +50,8 @@ utilities:
 	cd src/hangman && make
 	cd src/cal && make
 	cd src/pong && make
+	cd src/wrtest && make
+	cd src/jzip && make
 
 
 libmadlibc.a: $(MADLIBC_OBJS)
@@ -144,13 +148,17 @@ testfile.txt:
 	mkdir -p mnt/tdf/
 	cp src/tdftool/*.TDF mnt/tdf/
 	cp src/pong/pong mnt/bin/pong
+	cp src/wrtest/wrtest mnt/bin/wrtest
+	cp src/jzip/jzip mnt/bin/jzip
+	cp testdata/zork1.z3 mnt/testdata/zork1.z3
+
 	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
 	@cp hello1.txt mnt/testdata/hello1.txt
 	@cp hello2.txt mnt/testdata/hello2.txt
-	@dd if=/dev/urandom of=mnt/testdata/12blocks.bin bs=1024 count=12 1>/dev/null 2>&1
-	@dd if=/dev/urandom of=mnt/testdata/13blocks.bin bs=1024 count=13 1>/dev/null 2>&1
+	#@dd if=/dev/urandom of=mnt/testdata/12blocks.bin bs=1024 count=12 1>/dev/null 2>&1
+	#@dd if=/dev/urandom of=mnt/testdata/13blocks.bin bs=1024 count=13 1>/dev/null 2>&1
 	@cp 1mb.bin mnt/testdata
 	@cp texttest.txt mnt/testdata
 	@cp md5sum mnt/bin/md5sum
@@ -158,10 +166,11 @@ testfile.txt:
 	@cp testfile.txt mnt/testdata/
 	@mkdir mnt/ansi/
 	@cp files/*.ans mnt/ansi/
-	@cp files/frogprince.data mnt/testdata
-	@cp files/blackjack-640x384.data mnt/testdata/blackjack.data
+	#@cp files/frogprince.data mnt/testdata
+	#@cp files/blackjack-640x384.data mnt/testdata/blackjack.data
 	/usr/local/gcc-68k/bin/m68k-elf-strip mnt/bin/*
 	@ls --inode -ln mnt
 	@ls --inode -ln mnt/bin
 	@sync
+	df -h mnt
 	@sudo umount mnt
