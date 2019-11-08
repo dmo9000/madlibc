@@ -354,6 +354,7 @@ static void prompt_flush( void )
    }
 	*/
 
+	 
    last_display_status_size = display_status_size;
 
    /* Choose a prompt.  */
@@ -375,6 +376,7 @@ static void prompt_flush( void )
          outc( dumb_prompt[c] );
       }
    }
+   printf("\x1b\x5b\x6e");
 }
 
 void scroll_line( void )

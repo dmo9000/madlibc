@@ -37,16 +37,6 @@ int main(int argc, char *argv[])
         exit(1);
         }
 
-	/* putchar */
-
-	putchar('P');
-	putchar('\n');
-	putchar('\r');
-
-	putchar('N');
-	putchar('\n');
-	putchar('\r');
-
 	/* fprintf */
 
 	fprintf(stdout, "FPRINTF_STDOUT\n\r"); 
@@ -58,6 +48,10 @@ int main(int argc, char *argv[])
 
 	assert(c);
 	printf("getenv(\"TERM\") = '%s'\n\r", c);	
+
+  /* cursor position report */
+
+	printf("\x1b\x5b\x36\x6e");
 
 	exit(0);
 }
