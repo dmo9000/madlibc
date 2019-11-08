@@ -15,7 +15,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 										\
 			toupper.o tolower.o strtol.o strndup.o islower.o fwrite.o ferror.o feof.o				\
 			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o          \
 			rand.o isprint.o ntohs.o htonl.o rewind.o strtok.o remove.o fgets.o strspn.o		\
-			strpbrk.o fscanf.o
+			strpbrk.o fscanf.o getenv.o
 
 UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip
 
@@ -150,7 +150,7 @@ testfile.txt:
 	cp src/pong/pong mnt/bin/pong
 	cp src/wrtest/wrtest mnt/bin/wrtest
 	cp src/jzip/jzip mnt/bin/jzip
-	cp testdata/zork1.z3 mnt/testdata/zork1.z3
+	cp testdata/*.z3 mnt/testdata/
 
 	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1

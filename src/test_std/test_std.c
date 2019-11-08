@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
 	
 	int n = 0;
+	char *c = NULL;
 
 	printf("madlibc version: %u.%u.%u\n\r", 
 					MADLIBC_VER_MAJOR,
@@ -50,6 +51,13 @@ int main(int argc, char *argv[])
 
 	fprintf(stdout, "FPRINTF_STDOUT\n\r"); 
 //	fprintf(stdout, "FPRINTF_STDOUT %s\n\r", "foo"); 
+
+	/* getenv() */
+
+  c = getenv("TERM");
+
+	assert(c);
+	printf("getenv(\"TERM\") = '%s'\n\r", c);	
 
 	exit(0);
 }

@@ -334,6 +334,7 @@ static void prompt_flush( void )
    }
 
    /* Display the appropriate region.  */
+	/*
    for ( r = start; r <= end; r++ )
    {
       if ( ( status_compression == COMPRESSION_CHANGED ) && ( r < last_display_status_size ) &&
@@ -348,6 +349,7 @@ static void prompt_flush( void )
       print_status_suffix( r );
       outc( '\n' );
    }
+	*/
 
    last_display_status_size = display_status_size;
 

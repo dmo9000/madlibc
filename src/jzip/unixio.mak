@@ -42,17 +42,20 @@
 # To CFLAGS: -DUSE_ZLIB   
 # To LIBS: -lz
 
-CC = cc
+#CC = cc
+CC = /usr/local/gcc-68k/bin/m68k-elf-gcc
+
 
 # If your compiler doesn't like this, put -O or nothing.
 OPTIMIZE = -O2 
 #OPTIMIZE = 
 #OPTIMIZE = -pg -ansi -pedantic
 
-CFLAGS = $(OPTIMIZE) -DPOSIX -DHAVE_GETOPT -DHARD_COLORS #-DUSE_ZLIB
+CFLAGS = $(OPTIMIZE) -DPOSIX -DHAVE_GETOPT -DHARD_COLORS -Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -I../../include/ -I../libvt/ -I../../include/ -I../../libgrx #-DUSE_ZLIB
 
 #LIBS = -lcurses
-LIBS = -lz -ltermcap
+#LIBS = -lz -ltermcap
+LIBS = 
 
 # -------------------------------------------------------------------
 # YOU SHOULD NOT NEED TO MODIFY BELOW HERE

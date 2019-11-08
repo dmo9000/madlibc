@@ -1,6 +1,5 @@
 #ifndef __STDLIB_H__
 #define __STDLIB_H__
-
 #include <stddef.h>
 
 unsigned long int strtoul(const char *nptr, char **endptr, int base);
@@ -13,6 +12,6 @@ long int random(void);
 void srandom(unsigned int seed);
 void exit(int status);
 int abs(int j);
-
+char *getenv(const char *name);
 
 #endif /* __STDLIB_H__ */
