@@ -16,6 +16,6 @@ clear_screen ()
 
 int main()
 {
-    clear_screen();
+    vt_cls();
     exit(0);
 }

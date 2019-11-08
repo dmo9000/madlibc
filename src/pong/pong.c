@@ -33,7 +33,7 @@ int main()
 		vt_setfg(ANSI_FOREGROUND_WHITE);
 		vt_setbold(true);
 
-    clear_screen();
+    vt_cls();
 
 		draw_box(0,0,80,2);
 		draw_box(0,3,80,24);
@@ -122,6 +122,6 @@ finish:
 		vt_setbold(false);
 		vt_setfg(ANSI_FOREGROUND_WHITE);
 		vt_setbg(ANSI_BACKGROUND_BLACK);
-		clear_screen();
+		vt_cls();
     exit(0);
 }

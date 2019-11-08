@@ -2,7 +2,7 @@
 #include "libvt.h"
 
 void
-clear_screen ()
+vt_cls ()
 {
 
         printf ("%c[H%c[2J", CHAR_ESCAPE, CHAR_ESCAPE);

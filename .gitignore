@@ -21,6 +21,7 @@ src/cat/cat
 src/hexdump/hexdump
 src/tstansi/tstansi
 src/cls/cls
+src/reset/reset
 src/cd/cd
 src/time/time
 src/imgload/imgload

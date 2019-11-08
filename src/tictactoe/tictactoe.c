@@ -64,7 +64,7 @@ int check(){
 
 int main(){
   
-	clear_screen();
+	vt_cls();
   
   time_t t;                          // Declaring time variable for rand()
   srand((unsigned) time(&t));        // Seeding srand() with time
@@ -126,11 +126,11 @@ int main(){
       
       if(flag==3)
 	{ 
-		clear_screen();                  // Clears screen
+		vt_cls();                  // Clears screen
 	}
      }
     
-	clear_screen();
+	vt_cls();
   printf("\r\nTic Tac Toe (X vs O)! \r\n\r\n");
   printf("Use positions as (1,0),(0,2),(2,2)! \r\n\r\n\r\n");
           

@@ -17,7 +17,7 @@ int main(){
     char incorrectLetters[27];
     int it;
 
-		clear_screen();
+		vt_cls();
     printTitle("HANGMAN BY ZABE");
 
     while(keepPlaying == 'Y' || keepPlaying == 'y'){
@@ -63,7 +63,7 @@ int main(){
                     printf("\nAlso, you had tried this letter earlier.");
                 lives--;
             }
-						clear_screen();
+						vt_cls();
             printf("\n\nWord: %s\n",currentWord);
             printHangman(lives);
             printf("\nIncorrect letters: ");
@@ -91,7 +91,7 @@ int main(){
         }while(keepPlaying != 'y' && keepPlaying != 'Y'&& keepPlaying != 'n' && keepPlaying != 'N');
     }
     printf("\n");
-		clear_screen();
+		vt_cls();
     printTitle("Thanks for playing! OwO");
     
     return 0;

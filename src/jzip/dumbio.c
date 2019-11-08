@@ -39,6 +39,7 @@
  */
 
 #include "ztypes.h"
+#include "libvt.h"
 
 static int status_mode = FALSE;
 
@@ -174,6 +175,8 @@ void reset_screen( void )
 
 void clear_screen( void )
 {
+	vt_cls();
+
 }                               /* clear_screen */
 
 void select_status_window( void )
@@ -478,6 +481,7 @@ int input_line( int buflen, char *buffer, int timeout, int *read_size )
    }
 
    text_col = 0;
+   printf("\n\r");
    return c;
 }                               /* input_line */
 

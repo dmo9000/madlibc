@@ -5,7 +5,7 @@
 
 /*
 void
-clear_screen ()
+vt_cls ()
 {
 
         printf ("%c[H%c[2J", CHAR_ESCAPE, CHAR_ESCAPE);
@@ -25,7 +25,7 @@ int main()
 {
     int i = 0, j = 0;
 
-    clear_screen();
+    vt_cls();
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++) {
             set_cursor(j * 10, i * 2);

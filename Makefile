@@ -17,7 +17,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 										\
 			rand.o isprint.o ntohs.o htonl.o rewind.o strtok.o remove.o fgets.o strspn.o		\
 			strpbrk.o fscanf.o getenv.o
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/reset/reset src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip
 
 
 
@@ -40,6 +40,7 @@ utilities:
 	cd src/tstansi && make
 	cd src/imgload && make
 	cd src/cls && make
+	cd src/reset && make
 	cd src/cd && make
 	cd src/time && make
 	cd src/bogomips && make
@@ -80,6 +81,7 @@ clean:
 	cd src/grxtest && make clean
 	cd src/firedemo && make clean
 	cd src/cls && make clean
+	cd src/reset && make clean
 	cd src/cd && make clean
 	cd src/time && make clean
 	cd src/bogomips && make clean
@@ -135,6 +137,7 @@ testfile.txt:
 	@cp src/grxtest/grxtest mnt/bin/grxtest
 	@cp src/firedemo/firedemo mnt/bin/firedemo
 	@cp src/cls/cls mnt/bin/cls
+	@cp src/reset/reset mnt/bin/reset
 	@cp src/cd/cd mnt/bin/cd
 	@cp src/time/time mnt/bin/time
 	@cp src/bogomips/bogomips mnt/bin/bogomips
