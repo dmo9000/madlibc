@@ -36,3 +36,4 @@ src/libvt/libvt.a
 src/sysutil/sysutil
 src/cal/cal
 src/test_std/test_std
+src/malloctest/malloctest

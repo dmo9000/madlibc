@@ -45,6 +45,7 @@
 #include <err.h>
 
 
+
 #define _PATH_RANDOM   "random:"
 
 #define SMALLSIZE   72
@@ -593,14 +594,14 @@ test6(void)
 
 	fd = open(_PATH_RANDOM, O_RDONLY);
 	if (fd < 0) {
-		err(1, "%s", _PATH_RANDOM);
+		printf("%s", _PATH_RANDOM);
 	}
 	len = read(fd, &seed, sizeof(seed));
 	if (len < 0) {
-		err(1, "%s", _PATH_RANDOM);
+		printf("%s", _PATH_RANDOM);
 	}
 	else if (len < (int)sizeof(seed)) {
-		errx(1, "%s: Short read", _PATH_RANDOM);
+		printf("%s: Short read", _PATH_RANDOM);
 	}
 	close(fd);
 
