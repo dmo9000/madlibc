@@ -15,6 +15,7 @@
 #define	EFBIG		27	    /* File too large */
 #define EPIPE       32      /* Broken pipe */
 #define	EOPNOTSUPP	95	/* Operation not supported on transport endpoint */
+#define ENOTSUP		EOPNOTSUPP
 
 /* aliases */
 #define EWOULDBLOCK EAGAIN

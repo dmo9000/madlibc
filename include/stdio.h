@@ -46,6 +46,8 @@ void *malloc(size_t size);
 int fputc(int c, FILE *stream);
 int sprintf(char *str, const char *format, ...);
 int vsnprintf(char* buffer, size_t count, const char* format, va_list va);
+int sscanf(const char *str, const char *format, ...);
+
 #define SEEK_SET	0
 #define SEEK_CUR	1
 #define SEEK_END	2
@@ -56,6 +58,11 @@ int vsnprintf(char* buffer, size_t count, const char* format, va_list va);
 #ifndef EOF
 # define EOF (-1)
 #endif
+
+#define _IOFBF 0		/* Fully buffered.  */
+#define __MODE_READ 0x10  /* Opened in read only */
+#define __MODE_WRITE  0x20  /* Opened in write only */
+#define __MODE_RDWR 0x30  /* Opened in read/write */
 
 
 #endif /* __STDIO_H__ */

@@ -11,7 +11,7 @@ struct editorConfig {
 struct editorConfig E;
 
 void die(const char *s) {
-	printf("%s\n", s);
+	perror("tcgetattr");
 	exit(1);
 }
 
@@ -21,7 +21,20 @@ void disableRawMode() {
     die("tcsetattr");
 }
 void enableRawMode() {
-  if (tcgetattr(STDIN_FILENO, &E.orig_termios) == -1) die("tcgetattr");
+
+  if (tcgetattr(STDIN_FILENO, &E.orig_termios) == -1) { 
+			die("tcgetattr"); 
+			}
+
+  printf("tcflag_t c_iflag = %08x   /* input mode flags */\n\r", E.orig_termios.c_iflag);
+  printf("tcflag_t c_oflag = %08x   /* output mode flags */\n\r", E.orig_termios.c_oflag);
+	printf("tcflag_t c_cflag = %08x   /* control mode flags */\n\r", E.orig_termios.c_cflag);
+//    tcflag_t c_lflag;   /* local mode flags */
+//    cc_t c_line;      /* line discipline */
+//    cc_t c_cc[NCCS];    /* control characters */
+//    speed_t c_ispeed;   /* input speed */
+//    speed_t c_ospeed;   /* output speed */
+
   //atexit(disableRawMode);
   struct termios raw = E.orig_termios;
   raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
@@ -52,8 +65,6 @@ int getCursorPosition(int *rows, int *cols) {
 int main(int argc, char *argv[])
 {
 	int r, c;
-	int t = 0;
-  char buf[2];
 	enableRawMode();
 	getCursorPosition(&r, &c);
 	printf("cursor position = (%d,%d)\n\r", c, r);
