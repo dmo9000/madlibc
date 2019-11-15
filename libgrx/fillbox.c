@@ -11,8 +11,8 @@ int grx_fillbox(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t r, u
 				}
 	*/
 
-		for (j = y0 ; j < y1 ; j++) {
-			for (i = x0 ; i < x1 ; i++) {
+		for (j = y0 ; j <= y1 ; j++) {
+			for (i = x0 ; i <= x1 ; i++) {
 				grx_setpixel(i, j,  r, g, b);
 				}
 		}

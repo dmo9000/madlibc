@@ -1,7 +1,7 @@
 
 #define CHAR_ESCAPE 0x1B
 
-void clear_screen ();
+void vt_cls ();
 void set_cursor(int x, int y);
 int draw_box(int x1, int y1, int x2, int y2);
 

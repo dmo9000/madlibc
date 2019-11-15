@@ -17,7 +17,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 										\
 			rand.o isprint.o ntohs.o htonl.o rewind.o strtok.o remove.o fgets.o strspn.o		\
 			strpbrk.o fscanf.o getenv.o vfscanf.o vsscanf.o termios.o
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/reset/reset src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip src/malloctest/malloctest src/cursor/cursor
+UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/reset/reset src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip src/malloctest/malloctest src/cursor/cursor src/fonttest/fonttest src/which/which
 
 
 
@@ -55,6 +55,8 @@ utilities:
 	cd src/jzip && make
 	cd src/malloctest && make
 	cd src/cursor && make
+	cd src/fonttest && make
+	cd src/which && make
 
 libmadlibc.a: $(MADLIBC_OBJS)
 	$(AR) cru libmadlibc.a $(MADLIBC_OBJS)
@@ -156,6 +158,8 @@ testfile.txt:
 	cp src/jzip/jzip mnt/bin/jzip
 	cp src/malloctest/malloctest mnt/bin/malloctest
 	cp src/cursor/cursor mnt/bin/cursor
+	cp src/fonttest/fonttest mnt/bin/fonttest
+	cp src/which/which mnt/bin/which
 	cp testdata/*.z3 mnt/testdata/
 
 	@cp extra/dfrotz mnt/bin/dfrotz

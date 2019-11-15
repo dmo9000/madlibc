@@ -26,9 +26,10 @@ void enableRawMode() {
 			die("tcgetattr"); 
 			}
 
-  printf("tcflag_t c_iflag = %08x   /* input mode flags */\n\r", E.orig_termios.c_iflag);
-  printf("tcflag_t c_oflag = %08x   /* output mode flags */\n\r", E.orig_termios.c_oflag);
-	printf("tcflag_t c_cflag = %08x   /* control mode flags */\n\r", E.orig_termios.c_cflag);
+  printf("tcflag_t c_iflag = %08u   /* input mode flags */\n\r", E.orig_termios.c_iflag);
+  //printf("tcflag_t c_iflag = %08x   /* input mode flags */\n\r", E.orig_termios.c_iflag);
+//  printf("tcflag_t c_oflag = %08x   /* output mode flags */\n\r", E.orig_termios.c_oflag);
+//	printf("tcflag_t c_cflag = %08x   /* control mode flags */\n\r", E.orig_termios.c_cflag);
 //    tcflag_t c_lflag;   /* local mode flags */
 //    cc_t c_line;      /* line discipline */
 //    cc_t c_cc[NCCS];    /* control characters */

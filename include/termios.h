@@ -31,17 +31,17 @@ typedef unsigned int	tcflag_t;
 #define BRKINT  0000002
 #define IGNPAR  0000004
 #define PARMRK  0000010
-#define INPCK 0000020
+#define INPCK   0000020
 #define ISTRIP  0000040
-#define INLCR 0000100
-#define IGNCR 0000200
-#define ICRNL 0000400
-#define IUCLC 0001000
-#define IXON  0002000
-#define IXANY 0004000
-#define IXOFF 0010000
+#define INLCR   0000100		/* Translate NL to CR on input (doesn't this conflict with ICRNL?? */
+#define IGNCR   0000200
+#define ICRNL   0000400		/* Translate carriage return to newline on input (unless IGNCR is set) */
+#define IUCLC   0001000
+#define IXON    0002000
+#define IXANY   0004000 	/*( (XSI) Typing any character will restart stopped output.  (The default is to allow just the START character to restart output */
+#define IXOFF   0010000
 #define IMAXBEL 0020000
-#define IUTF8 0040000
+#define IUTF8   0040000
 
 /* c_oflag bits */
 #define OPOST 0000001

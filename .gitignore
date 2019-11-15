@@ -37,3 +37,7 @@ src/sysutil/sysutil
 src/cal/cal
 src/test_std/test_std
 src/malloctest/malloctest
+src/cursor/cursor
+src/fonttest/fonttest
+src/which/which
+
