@@ -4,27 +4,9 @@
 #include <assert.h>
 #include "grx.h"
 #include "bmf.h"
-#include "8x8.h"
 
 int grx_puts(BitmapFont *font, uint16_t x, uint16_t y, char *text, int scale, uint8_t r, uint8_t g, uint8_t b);
 int grx_glyph(BitmapFont *font, uint16_t x, uint16_t y, char glyph, int scale, uint8_t r, uint8_t g, uint8_t b);
-
-int main()
-{
-    BitmapFont *myfont = NULL;
-    myfont = bmf_embedded(bmf_8x8_bmf);
-    if (!myfont) {
-        perror("couldn't get bmf font: ");
-        exit(1);
-    }
-    grx_fillbox(0,0, 639, 383, 0, 127, 0);
-    grx_bufferswap();
-    grx_puts(myfont, 145, 276, "PRESS ANY KEY TO START", 2, 0, 0, 0);
-    grx_puts(myfont, 144, 275, "PRESS ANY KEY TO START", 2, 0, 255, 0);
-    grx_bufferswap();
-    grx_bufferswap();
-    exit(0);
-}
 
 int grx_puts(BitmapFont *font, uint16_t x, uint16_t y, char *text, int scale, uint8_t r, uint8_t g, uint8_t b)
 {
