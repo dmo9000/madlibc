@@ -40,4 +40,4 @@ src/malloctest/malloctest
 src/cursor/cursor
 src/fonttest/fonttest
 src/which/which
-
+src/touch/touch

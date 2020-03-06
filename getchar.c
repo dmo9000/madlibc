@@ -9,7 +9,7 @@ int getchar()
 
 int getchar()
 {
-	char buf[2];
-	read(STDIN_FILENO, &buf, 1);
-	return buf[0];
+    char buf[2];
+    read(STDIN_FILENO, &buf, 1);
+    return buf[0];
 }

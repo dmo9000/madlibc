@@ -9,12 +9,12 @@ int fprintf(FILE *stream, const char *format, ...)
     assert(stream);
     assert(format);
 
-		//printf("fprintf(%s, 'FORMAT_STRING')\r\n", streamname, format);
+    //printf("fprintf(%s, 'FORMAT_STRING')\r\n", streamname, format);
 
-		/* since filesystem, is not writable, should return EPERM? for now if not stdout/stderr */ 
+    /* since filesystem, is not writable, should return EPERM? for now if not stdout/stderr */
 
     if (stream == stdout || stream == stderr) {
-				//	printf("-> fprintf(%s -> ...)\r\n", streamname);
+        //	printf("-> fprintf(%s -> ...)\r\n", streamname);
         va_start( arglist, format );
         vprintf( format, arglist );
         va_end( arglist );

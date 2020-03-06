@@ -19,7 +19,7 @@ ssize_t read(int fd, void *buf, size_t count)
 ssize_t write(int fd, void *buf, size_t count)
 {
     int r = 0;
-		//printf("write(%d, ..., %u)\n\r", fd, count);
+    //printf("write(%d, ..., %u)\n\r", fd, count);
     r = bdvt->_write(fd, buf, count);
     return r;
 }

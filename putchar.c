@@ -3,13 +3,13 @@
 
 int putchar(int c)
 {
-		char strng[2];
+    char strng[2];
 //		char * p = (char *)0xff1002;
 //  	p[0] = c;
-		strng[0] = c;
-		strng[1] = 0;
-		write(STDOUT_FILENO, &strng, 1);
-  	return 0;
+    strng[0] = c;
+    strng[1] = 0;
+    write(STDOUT_FILENO, &strng, 1);
+    return 0;
 }
 
 int putc(int c, FILE *stream)

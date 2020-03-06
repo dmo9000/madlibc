@@ -208,12 +208,12 @@ va_list args;
 continue_format:
             switch(c = *format++) {
             case 's':
-						/* exploding somwhere after here ... these two functions are calling each other ... <sigh> */
+                /* exploding somwhere after here ... these two functions are calling each other ... <sigh> */
                 *tp++ = c;
                 *tp = '\0';
                 count += fprintf(dest, tempfmt, va_arg(args, char *));
-								printf("FPRINTF\n\r");
-								while (1) { } 
+                printf("FPRINTF\n\r");
+                while (1) { }
                 break;
             case 'u':
             case 'x':

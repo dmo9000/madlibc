@@ -11,21 +11,21 @@
 /* Nothing special here ... */
 char *fgets(char *s, size_t count, FILE * f)
 {
-	register size_t i = count;
-	register int ch;
-	char *ret = s;
+    register size_t i = count;
+    register int ch;
+    char *ret = s;
 
-	printf("fgets(..., %d, FILE->fd=%d)\n", count, f->_file);
-	while (i-- != 0) {
-		if ((ch = getc(f)) == EOF) {
-			if (s == ret)
-				return NULL;
-			break;
-		}
-		*s++ = (char) ch;
-		if (ch == '\n')
-			break;
-	}
-	*s = 0;
-	return ferror(f) ? NULL : ret;
+    printf("fgets(..., %d, FILE->fd=%d)\n", count, f->_file);
+    while (i-- != 0) {
+        if ((ch = getc(f)) == EOF) {
+            if (s == ret)
+                return NULL;
+            break;
+        }
+        *s++ = (char) ch;
+        if (ch == '\n')
+            break;
+    }
+    *s = 0;
+    return ferror(f) ? NULL : ret;
 }

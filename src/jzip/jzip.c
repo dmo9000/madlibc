@@ -60,11 +60,8 @@ int main( int argc, char *argv[] )
    configure( V1, V8 );
 
    initialize_screen(  );
-
    load_cache(  );
-
    z_restart(  );
-
    ( void ) interpret(  );
 
    unload_cache(  );

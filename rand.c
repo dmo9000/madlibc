@@ -16,19 +16,19 @@ static int seed3 = 1;
 
 int rand(void)
 {
-   register int q;
-   CRANK(206, 157,  31, 32363, seed1);
-   CRANK(217, 146,  45, 31727, seed2);
-   CRANK(222, 142, 133, 31657, seed3);
+    register int q;
+    CRANK(206, 157,  31, 32363, seed1);
+    CRANK(217, 146,  45, 31727, seed2);
+    CRANK(222, 142, 133, 31657, seed3);
 
-   return seed1^seed2^seed3;
+    return seed1^seed2^seed3;
 }
 
 void srand(unsigned int seed)
 {
-   seed &= MAXINT;
-   seed1= seed%32362 + 1;
-   seed2= seed%31726 + 1;
-   seed3= seed%31656 + 1;
+    seed &= MAXINT;
+    seed1= seed%32362 + 1;
+    seed2= seed%31726 + 1;
+    seed3= seed%31656 + 1;
 }
 

@@ -22,7 +22,7 @@ void *malloc(size_t size)
     size_t total_size;
     void *block;
     struct header_t *header;
-		//printf("malloc(%u)\r\n", size);
+    //printf("malloc(%u)\r\n", size);
     if (!size)
         return NULL;
 //	pthread_mutex_lock(&global_malloc_lock);

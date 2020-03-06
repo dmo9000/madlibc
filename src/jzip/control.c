@@ -226,7 +226,7 @@ void z_restart( void )
    /* Restart the screen */
 
    z_split_window( 0 );
-   set_colours( 1, 1 );         /* set default colors, added by JDH 8/6/95 */
+//   set_colours( 1, 1 );         /* set default colors, added by JDH 8/6/95 */
    set_attribute( NORMAL );
    z_erase_window( Z_SCREEN );
 
@@ -268,7 +268,6 @@ void z_restart( void )
 #if defined (USE_QUETZAL)
    frame_count = 0;
 #endif
-
 }                               /* z_restart */
 
 

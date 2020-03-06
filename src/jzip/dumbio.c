@@ -127,6 +127,7 @@ static int outc( int c )
 
 void initialize_screen( void )
 {
+	 set_cursor(0,25);
    if ( screen_cols == 0 )
       screen_cols = DEFAULT_COLS;
 
@@ -176,7 +177,7 @@ void reset_screen( void )
 void clear_screen( void )
 {
 	vt_cls();
-
+  set_cursor(0,25);
 }                               /* clear_screen */
 
 void select_status_window( void )
@@ -286,7 +287,7 @@ static int strneq( char *s, char c, int n )
 
 static void print_status_prefix( int r )
 {
-   outc( '[' );
+   outc( ' ' );
 #if 0
    /* NOTE: This code will break if we're using EBCDIC.  */
    outc( r / 10 + '0' );
@@ -297,7 +298,7 @@ static void print_status_prefix( int r )
 
 static void print_status_suffix( int r )
 {
-   outc( ']' );
+   outc( ' ' );
 }
 
 
@@ -337,7 +338,8 @@ static void prompt_flush( void )
    }
 
    /* Display the appropriate region.  */
-	/*
+	set_cursor(0,0);
+	 printf("%c[7m", 27); 
    for ( r = start; r <= end; r++ )
    {
       if ( ( status_compression == COMPRESSION_CHANGED ) && ( r < last_display_status_size ) &&
@@ -352,9 +354,10 @@ static void prompt_flush( void )
       print_status_suffix( r );
       outc( '\n' );
    }
-	*/
 
-	 
+	 printf("%c[0m", 27);
+   set_cursor(0,25);
+
    last_display_status_size = display_status_size;
 
    /* Choose a prompt.  */
@@ -376,6 +379,7 @@ static void prompt_flush( void )
          outc( dumb_prompt[c] );
       }
    }
+   outc(' ');
    printf("\x1b\x5b\x6e");
 }
 

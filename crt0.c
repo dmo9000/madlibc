@@ -30,7 +30,7 @@ int _start(int argc, char *argv[])
     assert(bdvt->magic == 0xf0e0f0e0);
 
     init_heap();
-		init_stdio();
+    init_stdio();
 
     if (bdvt->ver_rev < MIN_BDOS_VER) {
         printf("This program requires BDOS v0.0.%u to run.\n\r", MIN_BDOS_VER);

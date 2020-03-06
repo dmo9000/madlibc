@@ -8,7 +8,7 @@ const char *strerror(int en)
     case 0:
         return (const char *) "Success";
         break;
-		case EPERM:
+    case EPERM:
         return (const char *) "Permission denied";
         break;
     case ENOENT:
@@ -57,7 +57,12 @@ const char *strerror(int en)
     case EFAULT:
         return (const char *) "Bad address";
         break;
-
+    case EROFS:
+        return (const char *) "Read-only filesystem";
+        break;
+    default:
+        return (const char *) "I AM ERROR";
+        break;
     }
 
     return (const char *) "Unknown error!";
