@@ -1,30 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <termios.h>
+#include "libvt.h"
 
 
-int main (){
+int main (int argc, char *argv[])
+{
+		char *state = argv[1];
 
+		if (argc < 2 || argc > 3) {
+				printf("usage: echo on | off\n\r");
+				exit(1);
+				}
 
-    struct termios termInfo, save;
-    int c;
+		if (strncmp(state, "on", 2) == 0 && strlen(state) == 2) {
+				vt_echo(true);
+				exit(0);
+				}
 
-    c = tcgetattr(STDERR_FILENO, &termInfo);
+		if (strncmp(state, "off", 3) == 0 && strlen(state) == 3) {
+				vt_echo(false);
+				exit(0);
+				}
 
-    if(c == -1 ){
-        perror("tcgetattr");
-        exit(1);
-    }
-    if(termInfo.c_lflag & ECHO){
-        printf("Echo is on for you, will turn it off! \n\r");
-				termInfo.c_lflag &= ~((tcflag_t) ECHO);  /* turn off ECHO */	
-        printf("Echo has been turned off! \n\r");
-    }else{
-        printf("Echo is off for you, will turn it on! \n\r");
-				termInfo.c_lflag |= ECHO;  /* turn on ECHO */	
-        printf("Echo has been turned on! \n\r");
-    }
-    c = tcsetattr(STDERR_FILENO, TCSAFLUSH, &termInfo);
-	  printf("c = %d\n", c);
+		printf("unknown state: %s\n", state); 
+		exit(1);
+
 }

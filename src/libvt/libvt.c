@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <termios.h>
 #include "libvt.h"
 
 void
@@ -78,3 +79,32 @@ void vt_setbold(bool tf)
 							};
 	return;
 }
+
+void vt_echo(bool state)
+{
+    struct termios termInfo;
+		int c = 0;
+    c = tcgetattr(STDERR_FILENO, &termInfo);
+    if(c == -1 ){
+        perror("tcgetattr");
+        exit(1);
+    }
+		switch (state) {
+		case true: 
+        termInfo.c_lflag |= ECHO;  /* turn on ECHO */
+				break;
+		case false:
+        termInfo.c_lflag &= ~((tcflag_t) ECHO);  // turn off ECHO *
+				break;
+				}
+		c = tcsetattr(STDERR_FILENO, TCSAFLUSH, &termInfo);
+    if(c == -1 ){
+        perror("tcsetattr");
+        exit(1);
+    }
+
+		return;
+}
+
+
+

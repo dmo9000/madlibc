@@ -12,7 +12,9 @@ int open(const char *pathname, int flags)
 ssize_t read(int fd, void *buf, size_t count)
 {
     int r = 0;
+ 	  //printf("read(%d, ... %u) =", fd, count);
     r = bdvt->_read(fd, buf, count);
+    //printf(" %d\n\r", r);
     return r;
 }
 

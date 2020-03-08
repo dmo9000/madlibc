@@ -4,6 +4,7 @@
 void vt_cls ();
 void set_cursor(int x, int y);
 int draw_box(int x1, int y1, int x2, int y2);
+void vt_echo(bool state);
 
 #define UPPER_LEFT_CORNER		218
 #define UPPER_RIGHT_CORNER 	191
