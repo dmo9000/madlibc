@@ -17,13 +17,13 @@ int main (){
         exit(1);
     }
     if(termInfo.c_lflag & ECHO){
-        printf("Echo is on for you, will turn it off! \n");
+        printf("Echo is on for you, will turn it off! \n\r");
 				termInfo.c_lflag &= ~((tcflag_t) ECHO);  /* turn off ECHO */	
-        printf("Echo has been turned off! \n");
+        printf("Echo has been turned off! \n\r");
     }else{
-        printf("Echo is off for you, will turn it on! \n");
+        printf("Echo is off for you, will turn it on! \n\r");
 				termInfo.c_lflag |= ECHO;  /* turn on ECHO */	
-        printf("Echo has been turned on! \n");
+        printf("Echo has been turned on! \n\r");
     }
     c = tcsetattr(STDERR_FILENO, TCSAFLUSH, &termInfo);
 	  printf("c = %d\n", c);

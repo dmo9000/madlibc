@@ -96,7 +96,10 @@ testfile.txt:
 	@sudo mount 8mb.img mnt
 	@sudo chown -R dan:dan mnt
 	@mkdir mnt/bin
-	cp $(UTILITIES) mnt/bin/
+	for BASENAME in `echo $(UTILITIES)`; \
+    do ( cp $$BASENAME mnt/bin/ ) ; \
+    done 
+
 	@mkdir mnt/testdata
 #	@cp src/ls/ls mnt/bin/ls
 	# don't use symlink! causes crashes right now
