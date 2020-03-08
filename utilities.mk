@@ -1,6 +1,6 @@
 src/ls/ls
 src/cat/cat
-src/ls/hexdump
+src/hexdump/hexdump
 src/tstansi/tstansi
 src/cls/cls
 src/reset/reset
