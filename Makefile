@@ -17,8 +17,8 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 										\
 			rand.o isprint.o ntohs.o htonl.o rewind.o strtok.o remove.o fgets.o strspn.o		\
 			strpbrk.o fscanf.o getenv.o vfscanf.o vsscanf.o termios.o
 
-UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/reset/reset src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip src/malloctest/malloctest src/cursor/cursor src/fonttest/fonttest src/which/which src/touch/touch
-
+# UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/reset/reset src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip src/malloctest/malloctest src/cursor/cursor src/fonttest/fonttest src/which/which src/touch/touch
+UTILITIES=$(shell cat utilities.mk)
 
 
 all: libgrx.a src/libvt/libvt.a testfile.txt malltest libmadlibc.a md5sum utilities graphics 8mb 
@@ -78,22 +78,23 @@ md5sum:    libmadlibc.a crt0.o md5sum.o
 
 clean:
 	rm -f shim *.out *.srec *.o malltest md5sum *.img hello?.txt
-	cd src/ls && make clean
-	cd src/hexdump && make clean
-	cd src/tstansi && make clean
-	cd src/imgload && make clean
-	cd src/grxtest && make clean
-	cd src/firedemo && make clean
-	cd src/cls && make clean
-	cd src/reset && make clean
-	cd src/cd && make clean
-	cd src/time && make clean
-	cd src/bogomips && make clean
-	cd src/tictactoe && make clean
-	cd src/test_stdin && make clean
-	cd src/test_std && make clean
-	cd libgrx && make clean
-	cd src/libvt && make clean
+	for DIRNAME in `dirname $(UTILITIES)`; do ( cd $$DIRNAME && make clean ) ; done 
+#	cd src/ls && make clean
+#	cd src/hexdump && make clean
+#	cd src/tstansi && make clean
+#	cd src/imgload && make clean
+#	cd src/grxtest && make clean
+#	cd src/firedemo && make clean
+#	cd src/cls && make clean
+#	cd src/reset && make clean
+#	cd src/cd && make clean
+#	cd src/time && make clean
+#	cd src/bogomips && make clean
+#	cd src/tictactoe && make clean
+#	cd src/test_stdin && make clean
+#	cd src/test_std && make clean
+#	cd libgrx && make clean
+#	cd src/libvt && make clean
 
 veryclean: clean
 	rm -f testfile.txt

@@ -41,3 +41,8 @@ src/cursor/cursor
 src/fonttest/fonttest
 src/which/which
 src/touch/touch
+src/hangman/hangman
+src/pong/pong
+src/touch/touch
+src/wrtest/wrtest
+

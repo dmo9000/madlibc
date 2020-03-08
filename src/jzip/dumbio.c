@@ -380,7 +380,12 @@ static void prompt_flush( void )
       }
    }
    outc(' ');
-   printf("\x1b\x5b\x6e");
+//   printf("\x1b\x5b\x6e");
+//     printf("%c[?25l", 27);
+     printf("%c ", 219);
+     printf("%c%c", 0x08, 0x08);
+     //noecho();
+     //printf("%c[12h", 27);
 }
 
 void scroll_line( void )
@@ -462,7 +467,9 @@ static int read_char( void )
    }
 
    //printf("read_char() c = %d\n\r", c);
+
    input_is_at_eol = ( c == '\r' );
+
    return c;
 }                               /* read_char */
 
@@ -482,9 +489,22 @@ int input_line( int buflen, char *buffer, int timeout, int *read_size )
 
    while ( ( c = read_char(  ) ) != '\r' )
    {
-      if ( *read_size < buflen )
-         buffer[( *read_size )++] = c;
+      if ( *read_size < buflen ) {
+				if (c != 0x08) {
+	         buffer[( *read_size )++] = c;
+						printf("%c ", 219);
+						printf("%c%c", 0x08, 0x08);
+						} else {
+							/* backspace? */ 
+	         	buffer[( *read_size )--] = '\0';
+						printf("%c ", 219);
+						printf("%c%c", 0x08, 0x08);
+
+						}
+				 }
    }
+//   printf("  ");
+//   printf("%c%c", 0x08, 0x08);
 
    text_col = 0;
    printf("\n\r");
