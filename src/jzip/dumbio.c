@@ -111,6 +111,12 @@ static int inc( void )
          exit( 1 );
       }
    }
+
+	 /* output the character */
+	if (c!= 10 && c != 13) {
+		 printf("%c", c);
+		}
+
    return c;
 }
 
@@ -487,6 +493,8 @@ int input_line( int buflen, char *buffer, int timeout, int *read_size )
 
    *read_size = 0;
 
+   vt_echo(false);
+
    while ( ( c = read_char(  ) ) != '\r' )
    {
       if ( *read_size < buflen ) {
@@ -503,11 +511,12 @@ int input_line( int buflen, char *buffer, int timeout, int *read_size )
 						}
 				 }
    }
-//   printf("  ");
-//   printf("%c%c", 0x08, 0x08);
+   printf("  ");
+   printf("%c%c", 0x08, 0x08);
 
    text_col = 0;
    printf("\n\r");
+   vt_echo(true);
    return c;
 }                               /* input_line */
 

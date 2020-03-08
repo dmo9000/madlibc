@@ -94,7 +94,7 @@ extern bool continue_or_exit ()
 {
 
     char c = 0;
-    printf("Continue or exit [Y/n]?\r\n");
+    printf("Xontinue or exit [Y/n]?\r\n");
     puts("\r\n");
 
     while (1) {

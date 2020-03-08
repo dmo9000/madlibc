@@ -135,7 +135,6 @@ testfile.txt:
 	cp testdata/*.z3 mnt/testdata/
 	cp src/fonttest/*.raw mnt/testdata/
 
-	@cp extra/dfrotz mnt/bin/dfrotz
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
 	@cp hello1.txt mnt/testdata/hello1.txt

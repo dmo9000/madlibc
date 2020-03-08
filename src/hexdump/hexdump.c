@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <assert.h>
+#include "libvt.h"
 
 #define BUFSIZE 256 
 
@@ -19,7 +20,7 @@ int main(int argc, char *argv[])
 	struct stat statbuf;
 	FILE *d; 
 	if (argc < 2 || argc > 2) {
-			printf("usage: hexdump <filename>\r\n");
+			printf("usage: hexdump <filename>\n\r");
 			exit(1);
 			}
 
@@ -32,16 +33,16 @@ int main(int argc, char *argv[])
 	filesize = statbuf.st_size;
 	remaining = filesize;
 
-	printf("file size = %lu\r\n", filesize);
+	printf("file size = %lu\n\r", filesize);
 
 	d = fopen(argv[1], "rb");
 	if (!d) {
-			printf("hexdump: couldn't open file %s\r\n", argv[1]);
+			printf("hexdump: couldn't open file %s\n\r", argv[1]);
 			exit(1);
 			}
 
 	while (remaining > 0) {
-		//printf("remaining = %lu\r\n", remaining);
+		//printf("remaining = %lu\n\r", remaining);
 		memset(&buffer, 0, BUFSIZE);
 		nr_read = fread(&buffer, 1, BUFSIZE, d); 
 		ptr_dump(&buffer, (nr_read > BUFSIZE ? BUFSIZE : nr_read));
