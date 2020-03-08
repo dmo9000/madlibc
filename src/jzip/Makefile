@@ -6,3 +6,4 @@ all:
 
 clean:
 	make -f dumbio.mak clean
+	rm -f *.o jzip

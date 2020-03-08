@@ -34,30 +34,10 @@ graphics:
 	cd src/firedemo && make
 
 utilities:
-	cd src/ls && make
-	cd src/cat && make
-	cd src/hexdump && make
-	cd src/tstansi && make
-	cd src/imgload && make
-	cd src/cls && make
-	cd src/reset && make
-	cd src/cd && make
-	cd src/time && make
-	cd src/bogomips && make
-	cd src/tictactoe && make
-	cd src/test_stdin && make
-	cd src/test_std && make
-	cd src/sysutil && make
-	cd src/hangman && make
-	cd src/cal && make
-	cd src/pong && make
-	cd src/wrtest && make
-	cd src/jzip && make
-	cd src/malloctest && make
-	cd src/cursor && make
-	cd src/fonttest && make
-	cd src/which && make
-	cd src/touch && make
+	for DIRNAME in `dirname $(UTILITIES)`; \
+    do ( cd $$DIRNAME && make ) ; \
+    done 
+
 
 libmadlibc.a: $(MADLIBC_OBJS)
 	$(AR) cru libmadlibc.a $(MADLIBC_OBJS)
@@ -71,30 +51,15 @@ malltest:	libmadlibc.a crt0.o malltest.o
 		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a 
 
 md5sum:    libmadlibc.a crt0.o md5sum.o  
-# fopen.o fread.o fclose.o  
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o md5sum --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o libmadlibc.a md5sum.o    \
 		  libmadlibc.a /usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a
 
 
 clean:
 	rm -f shim *.out *.srec *.o malltest md5sum *.img hello?.txt
-	for DIRNAME in `dirname $(UTILITIES)`; do ( cd $$DIRNAME && make clean ) ; done 
-#	cd src/ls && make clean
-#	cd src/hexdump && make clean
-#	cd src/tstansi && make clean
-#	cd src/imgload && make clean
-#	cd src/grxtest && make clean
-#	cd src/firedemo && make clean
-#	cd src/cls && make clean
-#	cd src/reset && make clean
-#	cd src/cd && make clean
-#	cd src/time && make clean
-#	cd src/bogomips && make clean
-#	cd src/tictactoe && make clean
-#	cd src/test_stdin && make clean
-#	cd src/test_std && make clean
-#	cd libgrx && make clean
-#	cd src/libvt && make clean
+	for DIRNAME in `dirname $(UTILITIES)`; \
+		do ( cd $$DIRNAME && make clean ) ; \
+		done 
 
 veryclean: clean
 	rm -f testfile.txt
