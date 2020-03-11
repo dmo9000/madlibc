@@ -8,10 +8,11 @@
 
 int main (int argc, char *argv[])
 {
+		int i = 0;
 		char *state = argv[1];
 
-		if (argc < 2 || argc > 3) {
-				printf("usage: echo on | off\n\r");
+		if (argc < 2) {
+				printf("usage: echo on | off | <text>\n\r");
 				exit(1);
 				}
 
@@ -25,7 +26,12 @@ int main (int argc, char *argv[])
 				exit(0);
 				}
 
-		printf("unknown state: %s\n", state); 
-		exit(1);
-
+    i = 1;
+		while (argc > 1) {
+			argc--;
+			printf("%s ", argv[i]);
+			i++;
+			}
+		printf("\n\r");
+		exit(0);
 }

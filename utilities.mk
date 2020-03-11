@@ -20,3 +20,4 @@ src/fonttest/fonttest
 src/which/which
 src/touch/touch
 src/echo/echo
+src/tdftool/tdftool
