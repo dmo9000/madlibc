@@ -11,5 +11,6 @@ int close(int filedes);
 off_t lseek(int fd, off_t offset, int whence);
 int chdir(char *s);
 int usleep(useconds_t usec);
+char *getcwd(char *buf, size_t size);
 
 #endif /* __UNISTD_H__ */

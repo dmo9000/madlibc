@@ -1,29 +1,24 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <stdint.h>
-#include <sys/types.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <limits.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <stdbool.h>
 #include <string.h>
-#include <assert.h>
 
-#define BUFSIZE 256 
+/* trying for a userspace only solution, to prevent ballooning the kernel */
 
-int main(int argc, char *argv[])
-{
+int main() {
+   char cwd[PATH_MAX];
 
-	if (argc != 2) {
-			printf("usage: cd <path>\r\n");
-			exit(1);
-			}
-
-	if (chdir(argv[1]) !=0) {
-			perror("chdir");
-			exit(1);
-			}
-
-	/* all is well */
-
-	exit(0);
-
+   if (getcwd(cwd, PATH_MAX-1) != NULL) {
+       printf("%s\n\r", cwd);
+   } else {
+       perror("getcwd() error");
+       return 1;
+   }
+   return 0;
 }

@@ -21,3 +21,4 @@ src/which/which
 src/touch/touch
 src/echo/echo
 src/tdftool/tdftool
+src/pwd/pwd

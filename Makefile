@@ -15,7 +15,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 										\
 			toupper.o tolower.o strtol.o strndup.o islower.o fwrite.o ferror.o feof.o				\
 			bsearch.o basename.o rindex.o atof.o strtod.o getc.o scanf.o vfscanf.o          \
 			rand.o isprint.o ntohs.o htonl.o rewind.o strtok.o remove.o fgets.o strspn.o		\
-			strpbrk.o fscanf.o getenv.o vfscanf.o vsscanf.o termios.o
+			strpbrk.o fscanf.o getenv.o vfscanf.o vsscanf.o termios.o getcwd.o
 
 # UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/reset/reset src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip src/malloctest/malloctest src/cursor/cursor src/fonttest/fonttest src/which/which src/touch/touch
 UTILITIES=$(shell cat utilities.mk)
@@ -101,39 +101,11 @@ testfile.txt:
     done 
 
 	@mkdir mnt/testdata
-#	@cp src/ls/ls mnt/bin/ls
-	# don't use symlink! causes crashes right now
-	# cd mnt/bin/ && ln -sf ls dir & cd ../..
-#	@cp src/cat/cat mnt/bin/cat
-#	@cp src/hexdump/hexdump mnt/bin/hexdump
-#	@cp src/tstansi/tstansi mnt/bin/tstansi
-#	@cp src/imgload/imgload mnt/bin/imgload
-#	@cp src/grxtest/grxtest mnt/bin/grxtest
-#	@cp src/firedemo/firedemo mnt/bin/firedemo
-#	@cp src/cls/cls mnt/bin/cls
-#	@cp src/reset/reset mnt/bin/reset
-#	@cp src/cd/cd mnt/bin/cd
-#	@cp src/time/time mnt/bin/time
-#	@cp src/bogomips/bogomips mnt/bin/bogomips
-#	@cp src/tictactoe/tictactoe mnt/bin/tictactoe
-#	@cp src/test_stdin/test_stdin mnt/bin/test_stdin
-#	@cp src/test_std/test_std mnt/bin/test_std
-#	cp src/sysutil/sysutil mnt/bin/sysutil
-#	cp src/hangman/hangman mnt/bin/hangman
-#	cp src/cal/cal mnt/bin/cal
-#	cp src/tdftool/tdftool mnt/bin/tdftool
 	mkdir -p mnt/tdf/
 	cp src/tdftool/*.TDF mnt/tdf/
-#	cp src/pong/pong mnt/bin/pong
-#	cp src/wrtest/wrtest mnt/bin/wrtest
-#	cp src/jzip/jzip mnt/bin/jzip
-#	cp src/malloctest/malloctest mnt/bin/malloctest
-#	cp src/cursor/cursor mnt/bin/cursor
-#	cp src/fonttest/fonttest mnt/bin/fonttest
-#	cp src/which/which mnt/bin/which
-#	cp src/touch/touch mnt/bin/touch
 	cp testdata/*.z3 mnt/testdata/
 	cp src/fonttest/*.raw mnt/testdata/
+	mkdir -p mnt/foo/bar/baz
 
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
 	@printf "Hello world 2\r\n" > hello2.txt 2>&1
