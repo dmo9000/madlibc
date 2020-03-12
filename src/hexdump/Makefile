@@ -1,6 +1,6 @@
 CC=/usr/local/gcc-68k/bin/m68k-elf-gcc
 AR=/usr/local/gcc-68k/bin/m68k-elf-ar
-CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -I../../include/
+CFLAGS=-Wall -Wno-switch-bool -Wno-unused-value -Wno-unused-but-set-variable -m68000 -nostdlib -nodefaultlibs -nostdinc -Os -ffunction-sections -fdata-sections -I../../include/ -I../libvt/
 
 all: hexdump 
 

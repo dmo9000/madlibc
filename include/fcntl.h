@@ -52,6 +52,7 @@ int fcntl_find_free_fd();
 int fcntl_open_inode(uint32_t inode, int flags);
 int fcntl_close(int fildes);
 _fd *fcntl_get_descriptor(int fd);
+int fcntl(int fd, int c, int tf);
 
 
 #endif /* __FCNTL_H__ */

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <termios.h>
+#include <stdlib.h>
 #include "libvt.h"
 
 void
@@ -36,7 +37,7 @@ draw_box(int x1, int y1, int x2, int y2)
 			set_cursor(x1, i);
 			printf("%c", VERTICAL);
 				for (j = x1+1; j<x2-1; j++) {
-				printf(" ");			// fill box
+				//printf(" ");			// fill box
 				}
 			set_cursor(x2-1, i);
 			printf("%c", VERTICAL);
