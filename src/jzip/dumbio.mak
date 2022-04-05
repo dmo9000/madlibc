@@ -70,7 +70,7 @@ all  : jzip #jzexe ckifzs
 jzip : $(OBJS) ztypes.h jzip.h ../../crt0.o ../libvt/libvt.a ../../libmadlibc.a ../libvt/libvt.a ../../libgrx/libgrx.a
 	#$(CC) -o $@ $(CFLAGS) $(OBJS) $(LIBS)
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T ../../uspace.lds -o jzip --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  ../../crt0.o    \
-    $(OBJS) ../libvt/libvt.a ../../libmadlibc.a ../../libgrx/libgrx.a ../libvt/libvt.a /usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a 
+    $(OBJS) ../libvt/libvt.a ../../libmadlibc.a ../../libgrx/libgrx.a ../libvt/libvt.a /usr/local/gcc-68k/lib/gcc/m68k-elf/11.2.0/m68000/libgcc.a 
 
 jzexe : jzexe.o jzexe.h
 	$(CC) -o $@ $(CFLAGS) jzexe.o

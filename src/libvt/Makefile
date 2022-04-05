@@ -12,7 +12,7 @@ all: libvt.a
 libvt.a: libvt.o
 	/usr/local/gcc-68k/bin/m68k-elf-ar cru libvt.a libvt.o
 	## /usr/local/gcc-68k/bin/m68k-elf-ld -T ../../uspace.lds -o libvt --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  ../../crt0.o		\
-	## 	libvt.o ../../libmadlibc.a /usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a 
+	## 	libvt.o ../../libmadlibc.a /usr/local/gcc-68k/lib/gcc/m68k-elf/11.2.0/m68000/libgcc.a 
 
 clean:
 	rm -f *.o libvt.a

@@ -48,11 +48,11 @@ libmadlibc.a: $(MADLIBC_OBJS)
 malltest:	libmadlibc.a crt0.o malltest.o  
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o malltest --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o malltest.o 	\
 		 libmadlibc.a \
-		/usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a 
+		/usr/local/gcc-68k/lib/gcc/m68k-elf/11.2.0/m68000/libgcc.a 
 
 md5sum:    libmadlibc.a crt0.o md5sum.o  
 	/usr/local/gcc-68k/bin/m68k-elf-ld -T uspace.lds -o md5sum --gc-sections --defsym=_start=_start -Ttext=0x100100 -e _start  crt0.o libmadlibc.a md5sum.o    \
-		  libmadlibc.a /usr/local/gcc-68k/lib/gcc/m68k-elf/8.2.0/m68000/libgcc.a
+		  libmadlibc.a /usr/local/gcc-68k/lib/gcc/m68k-elf/11.2.0/m68000/libgcc.a
 
 
 clean:
@@ -77,6 +77,11 @@ install: 8mb.img
 	sudo cp libmadlibc.a /usr/local/gcc-68k-bdos/m68k-elf-bdos/lib/libc.a
 	sudo cp libmadlibc.a /usr/local/gcc-68k-bdos/m68k-elf-bdos/lib/libmadlibc.a
 
+
+install-headers:
+	sudo mkdir -p /usr/local/madlibc
+	sudo mkdir -p /usr/local/madlibc/lib
+	sudo cp -rfpv include /usr/local/madlibc/include
 
 
 testfile.txt:
