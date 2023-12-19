@@ -17,7 +17,7 @@ MADLIBC_OBJS=printf.o memset.o itoa.o strtoul.o memcpy.o strncmp.o 										\
 			rand.o isprint.o ntohs.o htonl.o rewind.o strtok.o remove.o fgets.o strspn.o		\
 			strpbrk.o fscanf.o getenv.o vfscanf.o vsscanf.o termios.o getcwd.o blkdev.o
 
-# UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/reset/reset src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip src/malloctest/malloctest src/cursor/cursor src/fonttest/fonttest src/which/which src/touch/touch
+# UTILITIES=src/ls/ls src/cat/cat src/ls/hexdump src/tstansi/tstansi src/cls/cls src/reset/reset src/cd/cd src/imgload/imgload src/time/time src/tictactoe/tictactoe src/sysutil/sysutil src/hangman/hangman src/cal/cal src/pong/pong src/wrtest/wrtest src/jzip/jzip src/malloctest/malloctest src/cursor/cursor src/fonttest/fonttest src/which/which src/touch/touch src/adventure/adventure
 UTILITIES=$(shell cat utilities.mk)
 
 
@@ -73,9 +73,9 @@ install: 8mb.img
 	sudo cp libmadlibc.a /usr/local/madlibc/lib/libmadlibc.a
 	sudo cp libmadlibc.a /usr/local/madlibc/lib/libc.a
 	sudo cp -rfp include/* /usr/local/madlibc/include
-	sudo cp -rfp include/* /usr/local/gcc-68k-bdos/m68k-elf-bdos/include 
-	sudo cp libmadlibc.a /usr/local/gcc-68k-bdos/m68k-elf-bdos/lib/libc.a
-	sudo cp libmadlibc.a /usr/local/gcc-68k-bdos/m68k-elf-bdos/lib/libmadlibc.a
+	#sudo cp -rfp include/* /usr/local/gcc-68k-bdos/m68k-elf-bdos/include 
+	#sudo cp libmadlibc.a /usr/local/gcc-68k-bdos/m68k-elf-bdos/lib/libc.a
+	#sudo cp libmadlibc.a /usr/local/gcc-68k-bdos/m68k-elf-bdos/lib/libmadlibc.a
 
 
 install-headers:
@@ -96,8 +96,10 @@ testfile.txt:
 	@dd if=/dev/urandom of=1mb.bin bs=1024 count=2048 1>/dev/null
 
 8mb: testfile.txt 1mb.bin
+	# not supporting large then 8MB 
 	@dd if=/dev/zero of=8mb.img count=65536 bs=128
-	@mke2fs ./8mb.img
+	# lower this number if you run out of inodes
+	@mke2fs -i 8192 ./8mb.img
 	@sudo mount 8mb.img mnt
 	@sudo chown -R dan:dan mnt
 	@mkdir mnt/bin
@@ -110,6 +112,9 @@ testfile.txt:
 	cp src/tdftool/*.TDF mnt/tdf/
 	cp testdata/*.z3 mnt/testdata/
 	cp src/fonttest/*.raw mnt/testdata/
+	#cp src/adventure/raw/*.raw mnt/testdata/
+	mkdir mnt/adventure
+	#cp src/adventure/raw/*.raw.zx0 mnt/adventure/
 	mkdir -p mnt/foo/bar/baz
 
 	@printf "Hello world 1\r\n" > hello1.txt 2>&1
@@ -118,13 +123,15 @@ testfile.txt:
 	@cp hello2.txt mnt/testdata/hello2.txt
 	#@dd if=/dev/urandom of=mnt/testdata/12blocks.bin bs=1024 count=12 1>/dev/null 2>&1
 	#@dd if=/dev/urandom of=mnt/testdata/13blocks.bin bs=1024 count=13 1>/dev/null 2>&1
+	cp -rfpv bmf mnt
+	cp 8x8/8x8.bmf mnt/bmf/
 	@cp 1mb.bin mnt/testdata
 	@cp texttest.txt mnt/testdata
 	@cp md5sum mnt/bin/md5sum
 	@cp malltest mnt/bin/malltest	
 	@cp testfile.txt mnt/testdata/
 	@mkdir mnt/ansi/
-	@cp files/*.ans mnt/ansi/
+	#@cp files/*.ans mnt/ansi/
 	#@cp files/frogprince.data mnt/testdata
 	#@cp files/blackjack-640x384.data mnt/testdata/blackjack.data
 	/usr/local/gcc-68k/bin/m68k-elf-strip mnt/bin/*

@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
-#define FIRE_WIDTH 640 
-#define FIRE_HEIGHT 384 
+#define FIRE_WIDTH 160 
+#define FIRE_HEIGHT 96 
 
 //#define FIRE_WIDTH (64*2)
 //#define FIRE_HEIGHT (38 *2)
@@ -121,7 +122,8 @@ int hostFrame()
     for(y = 0; y < FIRE_HEIGHT;  y++) {
         for(x = 0; x < FIRE_WIDTH; x++) {
             uint8_t index = firePixels[y * FIRE_WIDTH + x];
-            grx_setpixel(x, y, colors[index].r, colors[index].g, colors[index].b);
+            //grx_setpixel(x, y, colors[index].r, colors[index].g, colors[index].b);
+            grx_fillbox(x*4, (y*4), (x+1)*4, ((y+1)*4), colors[index].r, colors[index].g, colors[index].b); 
         }
     }
     return 0;

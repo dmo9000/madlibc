@@ -7,6 +7,35 @@
 #include <errno.h>
 #include "rawfont.h"
 
+bool bmf_loadfont(char *filename)
+{
+
+        BitmapFontHeader Header;
+        FILE *infile = NULL;
+        void *p = 0x20B4000;
+        infile = fopen(filename, "rb");
+        if (!infile) {
+                perror("fopen");
+                return false;
+                }
+        fread(&Header, 8, 1, infile);
+
+        /* only version 0, 8x8, 256 glyphs supported for now */
+
+        assert(Header.magic[0] == 'B');
+        assert(Header.magic[1] == 'M');
+        assert(Header.magic[2] == 'F');
+        assert(Header.version == 0);
+        assert(Header.px == 8);
+        assert(Header.py == 8);
+        assert(__builtin_bswap16(Header.glyphs) == 256);
+
+        fread(p, 2048, 1, infile);
+        grx_load_hardware_font();
+        fclose(infile);
+        return true;
+}
+
 
 BitmapFont *bmf_embedded(char *data)
 {
@@ -96,13 +125,14 @@ BitmapFont *bmf_load(char *filename)
     assert(myfont->header.version == 0);
     assert(myfont->header.px == 8);
     assert(myfont->header.py == 8);
-    assert(myfont->header.glyphs == 256);
+    //assert(myfont->header.glyphs == 256);
+    assert(__builtin_bswap16(myfont->header.glyphs) == 256); 
 
-    font_len_expect = (myfont->header.py * myfont->header.glyphs);
+    font_len_expect = (myfont->header.py * __builtin_bswap16(myfont->header.glyphs));
 
     assert(fseek(rawfont, 0, SEEK_END) == 0);
     myfont->size = ftell(rawfont) - sizeof(BitmapFontHeader);
-    assert ((bool) (myfont->size == font_len_expect));
+    assert ((bool) (myfont->size == __builtin_bswap16(myfont->header.glyphs) * myfont->header.py));
     myfont->fontdata = malloc(myfont->size);
 
     if (!myfont->fontdata) {

@@ -5,8 +5,28 @@
 #include "grx.h"
 #include "bmf.h"
 
+RGBColor PenColor;
+RGBColor PaperColor;
+
 int grx_puts(BitmapFont *font, uint16_t x, uint16_t y, char *text, int scale, uint8_t r, uint8_t g, uint8_t b);
 int grx_glyph(BitmapFont *font, uint16_t x, uint16_t y, char glyph, int scale, uint8_t r, uint8_t g, uint8_t b);
+
+
+int grx_setpen(unsigned char r, unsigned char g, unsigned char b)
+{
+	PenColor.r = r;	
+	PenColor.g = g;
+	PenColor.b = b;
+	return 0;
+}
+
+int grx_setpaper(unsigned char r, unsigned char g, unsigned char b)
+{
+	PaperColor.r = r;	
+	PaperColor.g = g;
+	PaperColor.b = b;
+	return 0;
+}
 
 int grx_puts(BitmapFont *font, uint16_t x, uint16_t y, char *text, int scale, uint8_t r, uint8_t g, uint8_t b)
 {
@@ -34,7 +54,9 @@ int grx_glyph(BitmapFont *font, uint16_t x, uint16_t y, char glyph, int scale, u
         for (i = 0; i < 8; i++) {
             if (ptr[j] & m) {
                 grx_fillbox(x+(i*scale), y+(j*scale), x+(i*scale)+(scale-1), y+(j*scale)+(scale-1), r, g, b);
-            }
+            } else {
+                grx_fillbox(x+(i*scale), y+(j*scale), x+(i*scale)+(scale-1), y+(j*scale)+(scale-1), PaperColor.r, PaperColor.g, PaperColor.b);
+		}
             m = m / 2;
         }
     }
